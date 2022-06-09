@@ -1,11 +1,14 @@
 package com.examportal.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,6 +28,11 @@ public class User {
     private String phone;
     private String profile;
     private boolean enabled = true;
+
+//    one user have many roles
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    @JsonIgnore
+    private Set<UserRole> userRoleSet = new HashSet<>();
 
     public User() {
     }
