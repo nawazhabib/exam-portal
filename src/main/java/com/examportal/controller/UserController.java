@@ -1,10 +1,13 @@
 package com.examportal.controller;
 
+import com.examportal.exception.UserFoundException;
 import com.examportal.model.Role;
 import com.examportal.model.User;
 import com.examportal.model.UserRole;
 import com.examportal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -53,4 +56,8 @@ public class UserController {
 //    update user by user name
 
 
+    @ExceptionHandler(UserFoundException.class)
+    public ResponseEntity<Object> exceptionHandler(UserFoundException e) {
+        return new ResponseEntity<>("User is found", HttpStatus.FOUND);
+    }
 }
