@@ -18,6 +18,7 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long quizID;
     private String title;
+    @Column(length = 5000)
     private String description;
     private String maxMark;
     private String numberOfQuestions;

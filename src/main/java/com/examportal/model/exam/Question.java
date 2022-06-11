@@ -15,6 +15,7 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long questionID;
+    @Column(length = 5000)
     private String content;
 
     private String option1;
