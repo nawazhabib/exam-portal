@@ -50,7 +50,7 @@ public class User implements UserDetails {
             authoritySet.add(new Authority(userRole.getRole().getRoleName()));
         });
 
-        return null;
+        return authoritySet;
     }
 
     @Override
