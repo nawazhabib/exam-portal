@@ -1,5 +1,6 @@
 package com.examportal;
 
+import com.examportal.exception.UserFoundException;
 import com.examportal.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,7 @@ public class ExamPortalServerApplication implements CommandLineRunner {
 //
 //		logger.info(user1.getUsername());
 //
-//		} catch (Exception e){
+//		} catch (UserFoundException e){
 //			e.printStackTrace();
 //		}
 

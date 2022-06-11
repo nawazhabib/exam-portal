@@ -1,5 +1,6 @@
 package com.examportal.service.serviceImplement;
 
+import com.examportal.exception.UserFoundException;
 import com.examportal.model.User;
 import com.examportal.model.UserRole;
 import com.examportal.repository.RoleRepository;
@@ -29,7 +30,7 @@ public class UserServiceImpl implements UserService {
         User user1 = this.userRepository.findByUsername(user.getUsername());
         if(user1 != null){
             logger.info("user is already in db");
-            throw new Exception("username already use");
+            throw new UserFoundException();
         }else {
             for(UserRole ur : userRoles){
                 roleRepository.save(ur.getRole());
