@@ -20,4 +20,8 @@ public interface QuizService {
     public void deleteQuiz(Long quizID);
 
     public List<Quiz> getQuizesOfCategory(Category category);
+
+    public List<Quiz>  getActiveQuizes();
+
+    public List<Quiz> getActiveQuizesOfCategory(Category category);
 }
