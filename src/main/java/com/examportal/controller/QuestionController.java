@@ -53,6 +53,15 @@ public class QuestionController {
         return ResponseEntity.ok(list);
     }
 
+//    get all question by quizID for admin perpose
+    @GetMapping("/quiz/all/{quizID}")
+    public ResponseEntity<?> getQuestionOfQuizAdmin(@PathVariable("quizID") Long quizID){
+        Quiz quiz = new Quiz();
+        quiz.setQuizID(quizID);
+        Set<Question> questionsOfQuiz = this.questionService.getQuestionsOfQuiz(quiz);
+        return ResponseEntity.ok(questionsOfQuiz);
+    }
+
 //    get single question
     @GetMapping("/{questionID}")
     public Question getQuestion(@PathVariable ("questionID") Long questionID){
