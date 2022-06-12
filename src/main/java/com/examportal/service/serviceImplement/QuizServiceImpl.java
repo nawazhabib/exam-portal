@@ -1,5 +1,6 @@
 package com.examportal.service.serviceImplement;
 
+import com.examportal.model.exam.Category;
 import com.examportal.model.exam.Quiz;
 import com.examportal.repository.QuizRepository;
 import com.examportal.service.QuizService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -38,5 +40,10 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public void deleteQuiz(Long quizID) {
         this.quizRepository.deleteById(quizID);
+    }
+
+    @Override
+    public List<Quiz> getQuizesOfCategory(Category category) {
+        return this.quizRepository.findByCategory(category);
     }
 }
