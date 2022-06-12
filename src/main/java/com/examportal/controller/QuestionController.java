@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @CrossOrigin("*")
@@ -74,5 +71,34 @@ public class QuestionController {
         this.questionService.deleteQuestion(questionID);
     }
 
+//    evaluate quiz
+    @PostMapping("/eval-quiz")
+    public ResponseEntity<?> evalQuiz(@RequestBody List<Question> questions){
+        double marksGot = 0;
+        int correcctAns = 0;
+        int attempted = 0;
+
+        for (Question question : questions){
+
+            Question question1 = this.questionService.get(question.getQuestionID());
+
+            if(question1.getAnswer().trim().equals(question.getGivenAnswer().trim())){
+
+                correcctAns++;
+
+                double marksSingle = Double.parseDouble(questions.get(0).getQuiz().getMaxMark())/questions.size();
+
+                marksGot+=marksSingle;
+
+            }
+            if(question.getGivenAnswer()==null || question.getGivenAnswer().trim().equals("")){
+                attempted++;
+            }
+        }
+
+        Map<String, Object> map = Map.of("marksGot", marksGot, "coorectAnswer", correcctAns, "attemptd", attempted);
+
+        return ResponseEntity.ok(map);
+    }
 
 }

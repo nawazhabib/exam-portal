@@ -25,6 +25,9 @@ public class Question {
 
     private String answer;
 
+    @Transient
+    private String givenAnswer;
+
     @ManyToOne
     private Quiz quiz;
 
