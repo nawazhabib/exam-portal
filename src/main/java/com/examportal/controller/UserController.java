@@ -25,6 +25,11 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @GetMapping("/test")
+    public String test(){
+        return "Examportal serving is running";
+    }
+
 //    creating user with normal role
     @PostMapping("/")
     public User createUser(@RequestBody User user) throws Exception {

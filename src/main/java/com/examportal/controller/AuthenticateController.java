@@ -31,10 +31,10 @@ public class AuthenticateController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    //testing perpose
+//    for testing
     @GetMapping("/test")
     public String test(){
-        return "Examportal serving is running";
+        return "ExamPortal server is running";
     }
 
 
