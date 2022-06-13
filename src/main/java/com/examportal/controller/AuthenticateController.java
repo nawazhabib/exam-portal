@@ -31,6 +31,13 @@ public class AuthenticateController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    //testing perpose
+    @GetMapping("/test")
+    public String test(){
+        return "Examportal serving is running";
+    }
+
+
     //    gnerating token
     @PostMapping("/generate-token")
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {

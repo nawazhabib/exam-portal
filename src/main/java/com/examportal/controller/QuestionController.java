@@ -42,6 +42,10 @@ public class QuestionController {
 
         List<Question> list = new ArrayList<>(questionSet);
 
+        list.forEach((q)->{
+            q.setAnswer("");
+        });
+
         if(list.size()>Integer.parseInt(quiz.getNumberOfQuestions())){
             list = list.subList(0, Integer.parseInt(quiz.getNumberOfQuestions()+1));
         }
@@ -82,7 +86,7 @@ public class QuestionController {
 
             Question question1 = this.questionService.get(question.getQuestionID());
 
-            if(question1.getAnswer().trim().equals(question.getGivenAnswer().trim())){
+            if(question1.getAnswer().equals(question.getGivenAnswer())){
 
                 correcctAns++;
 
@@ -91,7 +95,7 @@ public class QuestionController {
                 marksGot+=marksSingle;
 
             }
-            if(question.getGivenAnswer()==null || question.getGivenAnswer().trim().equals("")){
+            if(question.getGivenAnswer()!=null){
                 attempted++;
             }
         }

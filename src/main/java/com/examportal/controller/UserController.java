@@ -56,15 +56,13 @@ public class UserController {
     }
 
 //    deleter user by user ID
+    @DeleteMapping("/{userID}")
     public void deleteUser(@PathVariable("userID") Long userID){
         this.userService.deleteUser(userID);
     }
 
-//    update user by user name
-
-
     @ExceptionHandler(UserFoundException.class)
     public ResponseEntity<Object> exceptionHandler(UserFoundException e) {
-        return new ResponseEntity<>("User is found", HttpStatus.FOUND);
+        return new ResponseEntity<>("User is found in DB", HttpStatus.FOUND);
     }
 }

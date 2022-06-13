@@ -1,6 +1,9 @@
 package com.examportal;
 
 import com.examportal.exception.UserFoundException;
+import com.examportal.model.Role;
+import com.examportal.model.User;
+import com.examportal.model.UserRole;
 import com.examportal.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,12 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootApplication
 public class ExamPortalServerApplication implements CommandLineRunner {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	Logger logger = LoggerFactory.getLogger(ExamPortalServerApplication.class);
 
@@ -33,7 +43,7 @@ public class ExamPortalServerApplication implements CommandLineRunner {
 //		user.setFirstName("Nawaz");
 //		user.setLastName("Habib");
 //		user.setUsername("nawazHabib");
-//		user.setPassword("zaq1xsw2");
+//		user.setPassword(this.bCryptPasswordEncoder.encode(("nawazHabib")));
 //		user.setEmail("roaringhabib64@gmail.com");
 //		user.setProfile("default.png");
 //
