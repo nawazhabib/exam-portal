@@ -5,8 +5,10 @@ import com.examportal.model.Role;
 import com.examportal.model.User;
 import com.examportal.model.UserRole;
 import com.examportal.service.UserService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,23 +21,23 @@ import java.util.Set;
 @SpringBootApplication
 public class ExamPortalServerApplication implements CommandLineRunner {
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	Logger logger = LoggerFactory.getLogger(ExamPortalServerApplication.class);
+    Logger logger = LoggerFactory.getLogger(ExamPortalServerApplication.class);
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		SpringApplication.run(ExamPortalServerApplication.class, args);
-		System.out.println("Project Is Running");
-	}
+        SpringApplication.run(ExamPortalServerApplication.class, args);
+        System.out.println("Project Is Running");
+    }
 
-	@Override
-	public void run(String... args) throws Exception {
-		logger.info("Project is running");
+    @Override
+    public void run(String... args) throws Exception {
+        logger.info("Project is running");
 
 //		try{
 //			User user = new User();
@@ -66,5 +68,5 @@ public class ExamPortalServerApplication implements CommandLineRunner {
 //			e.printStackTrace();
 //		}
 
-	}
+    }
 }

@@ -2,8 +2,10 @@ package com.examportal.configuration;
 
 import com.examportal.service.serviceImplement.UserDetailsServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,35 +41,35 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String username = null;
         String jwtToken = null;
 
-        if(requestTokenHeader!= null && requestTokenHeader.startsWith("Bearer ")){
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
 
             jwtToken = requestTokenHeader.substring(7);
 
-            try{
+            try {
                 username = this.jwtUtil.extractUsername(jwtToken);
-            }catch (ExpiredJwtException e){
+            } catch (ExpiredJwtException e) {
                 e.printStackTrace();
                 logger.info("jwt token has expired");
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 logger.error("Erro in token handaling");
             }
-        }else{
+        } else {
             logger.info("Invalid token");
         }
 
 //       check validated token
-        if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null){
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             final UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
-            if(this.jwtUtil.validateToken(jwtToken, userDetails)){
+            if (this.jwtUtil.validateToken(jwtToken, userDetails)) {
 //                token is valid
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
-        }else {
+        } else {
             logger.info("Token is not valid");
         }
         filterChain.doFilter(request, response);
