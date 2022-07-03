@@ -6,6 +6,7 @@ import com.examportal.model.JwtRequest;
 import com.examportal.model.JwtResponse;
 import com.examportal.model.User;
 import com.examportal.service.serviceImplement.UserDetailsServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,19 +32,18 @@ public class AuthenticateController {
     @Autowired
     private JwtUtil jwtUtil;
 
-//    for testing
+    //    for testing
     @GetMapping("/test")
-    public String test(){
+    public String test() {
         return "ExamPortal server is running";
     }
-
 
     //    gnerating token
     @PostMapping("/generate-token")
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
-        try{
+        try {
             authenticate(jwtRequest.getUsername(), jwtRequest.getPassword());
-        }catch (UsernameNotFoundException e){
+        } catch (UsernameNotFoundException e) {
             throw new UserNotFountException("User not found");
         }
 
@@ -55,16 +55,16 @@ public class AuthenticateController {
     private void authenticate(String username, String password) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        }catch (DisabledException e){
+        } catch (DisabledException e) {
             throw new Exception("User Disabled" + e.getMessage());
-        }catch (BadCredentialsException e){
+        } catch (BadCredentialsException e) {
             throw new Exception("Invalid Credentials" + e.getMessage());
         }
     }
 
     //    get current user details
     @GetMapping("/current-user")
-    public User getCurrentUser(Principal principal){
+    public User getCurrentUser(Principal principal) {
         return ((User) this.userDetailsService.loadUserByUsername(principal.getName()));
     }
 }
