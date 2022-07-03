@@ -1,8 +1,7 @@
-import {
-    default as HomeImage,
-    default as SignupImage,
-} from "../assets/images/education.svg";
-import { SIGNUP, SIGNUP_LABEL, USER } from "../routes";
+import HomeImage from "../assets/images/education.svg";
+import LoginImage from "../assets/images/login.svg";
+import SignupImage from "../assets/images/signup.svg";
+import { LOGIN_LABEL, SIGNUP, SIGNUP_LABEL, USER } from "../routes";
 
 export const homeData = {
     img: HomeImage,
@@ -14,8 +13,16 @@ export const homeData = {
 
 export const signupData = {
     img: SignupImage,
-    title: "Welcome to exam portal",
+    title: "Welcome to exam portal!",
     desc: "Create Your Own accout to save your daily progress",
     link: USER,
     btn: SIGNUP_LABEL,
+};
+
+export const loginData = {
+    img: LoginImage,
+    title: "Welcome Back!",
+    desc: "Login and attempt quizes",
+    link: USER,
+    btn: LOGIN_LABEL,
 };

@@ -22,6 +22,7 @@ const Home = () => {
                         <PrimaryBtn
                             onClick={() => navigate(link)}
                             title={btn}
+                            className="mt-4"
                         />
                     </div>
                 </div>
