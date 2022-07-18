@@ -14,7 +14,7 @@ const PrimaryBtn = ({
                 {...rest}
                 disabled={loading}
                 className={
-                    "disabled:bg-gray-100 disabled:text-gray-500 hover:cursor-pointer disabled:cursor-not-allowed shadow-md shadow-blue-400 px-4 py-2 rounded-md   text-white uppercase hover:bg-blue-400 " +
+                    "disabled:bg-gray-100 disabled:text-gray-500 hover:cursor-pointer disabled:cursor-not-allowed shadow-md shadow-blue-400 px-4 py-2 rounded-md   text-white uppercase hover:bg-blue-400 font-bold " +
                     className +
                     bg
                 }

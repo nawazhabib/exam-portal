@@ -8,6 +8,7 @@ import Login from "./screens/login/Login";
 import NotFound from "./screens/not-found/NotFound";
 import SignUp from "./screens/signup/SingnUp";
 import AllQuiz from "./screens/user/all-quiz/AllQuiz";
+import FinishedQuiz from "./screens/user/all-quiz/FinishedQuiz";
 import OnGoingQuiz from "./screens/user/all-quiz/OnGoingQuiz";
 import AttemptQuiz from "./screens/user/AttemptQuiz";
 // import QuizCategories from "./screens/user/QuizCategories";
@@ -30,6 +31,7 @@ function App() {
                         <Route path="attempt" element={<AttemptQuiz />} />
                     </Route>
                     <Route path={RUNNING} element={<OnGoingQuiz />} />
+                    <Route path={`${RUNNING}/:id`} element={<FinishedQuiz />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </BrowserRouter>

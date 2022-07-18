@@ -33,7 +33,7 @@ const TimeIndicator = () => {
         );
     };
     return (
-        <div className="bg-white border-gray-200 border-2 p-4 w-full shadow-lg flex flex-col justify-center items-center">
+        <div className="bg-white border-gray-200 border-2 p-4 w-full shadow-lg flex flex-col justify-center items-center rounded-md">
             <h1 className="mb-2 text-base">Time Indicator</h1>
             <Countdown date={Date.now() + 3 * 60 * 1000} renderer={renderer} />
         </div>

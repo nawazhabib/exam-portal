@@ -7,7 +7,7 @@ const QuizHeader = () => {
         <QuizOptionsCard>
             <Title
                 title="Java Basic Examp"
-                className=" p-0 mb-0 truncate capitalize font-medium  text-xl sm:text-2xl md:text-2xl"
+                className=" p-0 mb-0 truncate capitalize font-medium "
                 subtitle=" programming Hero"
             />
             <div className="grid sm:grid-cols-2 mt-2">

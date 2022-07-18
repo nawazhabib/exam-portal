@@ -3,13 +3,16 @@ import React from "react";
 const Title = ({ title, subtitle, children, className }) => {
     return (
         <div
-            className={` uppercase text-blue-700  w-full bg-white mb-3 rounded ${className}`}
+            className={` text-xl sm:text-2xl md:text-2xl uppercase text-blue-700  w-full bg-white mb-3 rounded ${className}`}
         >
-            <div className="flex">
-                {children && (
-                    <div className="text-gray-500 mr-3  ">{children}</div>
-                )}
-                <h1 className="truncate">{title}</h1>
+            <div>
+                <div>
+                    {" "}
+                    {children && (
+                        <span className="text-gray-500 mr-3  "></span>
+                    )}{" "}
+                    {children} <span className="truncate">{title}</span>
+                </div>
             </div>
 
             {
