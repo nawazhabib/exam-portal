@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
+import Title from "../../../components/text/Title";
 import Cards from "../card/Cards";
-import Title from "./Title";
 
 const CARDS = [
     {
@@ -40,7 +40,9 @@ const AllQuiz = () => {
     return (
         <div>
             {/* title */}
-            <Title title={title} />
+            <Title title={title} className="border-b-2 border-pruple shadow-md">
+                Category:{" "}
+            </Title>
 
             {/* Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

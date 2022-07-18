@@ -17,7 +17,7 @@ module.exports = {
             center: true,
             padding: {
                 DEFAULT: "1rem",
-                sm: "2rem",
+                sm: "1.5rem",
                 lg: "2rem",
                 xl: "2rem",
                 "2xl": "2rem",
@@ -90,6 +90,20 @@ module.exports = {
 
             "2xl": "1536px",
             // => @media (min-width: 1536px) { ... }
+        },
+        fontSize: {
+            xs: ".75rem",
+            sm: ".875rem",
+            tiny: ".875rem",
+            base: "1rem",
+            lg: "1.125rem",
+            xl: "1.25rem",
+            "2xl": "1.5rem",
+            "3xl": "1.875rem",
+            "4xl": "2.25rem",
+            "5xl": "3rem",
+            "6xl": "4rem",
+            "7xl": "5rem",
         },
     },
     plugins: [require("@tailwindcss/line-clamp")],
