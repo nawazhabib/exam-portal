@@ -27,6 +27,9 @@ module.exports = {
             animation: {
                 "spin-slow": "spin 3s linear infinite",
             },
+            height: {
+                90: "85.9vh",
+            },
             spacing: {
                 xs: "5px",
                 sm: "8px",
@@ -89,5 +92,5 @@ module.exports = {
             // => @media (min-width: 1536px) { ... }
         },
     },
-    plugins: [],
+    plugins: [require("@tailwindcss/line-clamp")],
 };

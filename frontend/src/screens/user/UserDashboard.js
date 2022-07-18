@@ -1,16 +1,17 @@
+import { Outlet } from "react-router-dom";
 import Container from "../../components/container/Container";
 import Sidebar from "../../components/sidebar/Sidebar";
 
 const UserDashboard = () => {
     return (
-        <Container className="py-0 ">
+        <Container className="pt-4 h-90">
             <div className="flex  h-full">
                 <div className="h-full">
                     <Sidebar />
                 </div>
 
-                <div>
-                    <h1>All User Activity goes here</h1>
+                <div className=" ml-5 px-4 py-5 bg-gray-50 border-2 border-gray-200 w-full">
+                    <Outlet />
                 </div>
             </div>
         </Container>
