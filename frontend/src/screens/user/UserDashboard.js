@@ -5,8 +5,8 @@ import Sidebar from "../../components/sidebar/Sidebar";
 const UserDashboard = () => {
     return (
         <Container className="pt-4 h-full">
-            <div className="flex  min-h-90">
-                <div>
+            <div className="  sm:flex  min-h-90">
+                <div className=" hidden  sm:flex  min-h-90">
                     <Sidebar />
                 </div>
 

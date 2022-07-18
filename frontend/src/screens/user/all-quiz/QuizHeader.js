@@ -8,7 +8,7 @@ const QuizHeader = () => {
             <Title
                 title="Java Basic Examp"
                 className=" p-0 mb-0 truncate capitalize font-medium "
-                subtitle=" programming Hero"
+                subtitle=" Programming Attempt"
             />
             <div className="grid sm:grid-cols-2 mt-2">
                 <p className="font-body text-gray-500 mb-2 sm:mb-0">

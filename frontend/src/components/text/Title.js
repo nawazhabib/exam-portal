@@ -6,7 +6,7 @@ const Title = ({ title, subtitle, children, className }) => {
             className={` text-xl sm:text-2xl md:text-2xl uppercase text-blue-700  w-full bg-white mb-3 rounded ${className}`}
         >
             <div>
-                <div>
+                <div className="truncate">
                     {" "}
                     {children && (
                         <span className="text-gray-500 mr-3  "></span>
