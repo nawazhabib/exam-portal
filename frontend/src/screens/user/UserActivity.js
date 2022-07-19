@@ -1,7 +1,7 @@
 const UserActivity = () => {
     return (
         <div>
-            <h1>Users all Activity</h1>
+            <h1>User Activeity</h1>
         </div>
     );
 };
