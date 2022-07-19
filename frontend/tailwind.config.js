@@ -106,5 +106,5 @@ module.exports = {
             "7xl": "5rem",
         },
     },
-    plugins: [require("@tailwindcss/line-clamp")],
+    plugins: [require("@tailwindcss/line-clamp"), require("flowbite/plugin")],
 };

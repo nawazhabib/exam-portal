@@ -4,7 +4,7 @@ const SidebarLink = ({ icon: Icon, path, name, active }) => {
     return (
         <Link
             to={path}
-            className={`flex items-center mb-2  py-2 rounded-lg px-2 hover:bg-purple-50 hover:text-white ${
+            className={`flex items-center mb-2 min-w-max  py-2 rounded-lg px-2 hover:bg-purple-50 hover:text-white ${
                 active ? " bg-purple-50" : "bg-gray-100"
             }`}
         >

@@ -4,17 +4,21 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
+    ADMIN,
     HOME,
     HOME_LABEL,
     LOGIN,
     LOGIN_LABEL,
     SIGNUP,
     SIGNUP_LABEL,
+    USER,
 } from "../../routes";
 const navigation = [
     { name: HOME_LABEL, to: HOME, current: true },
     { name: LOGIN_LABEL, to: LOGIN, current: false },
     { name: SIGNUP_LABEL, to: SIGNUP, current: false },
+    { name: "Admin", to: ADMIN, current: false },
+    { name: "User", to: USER, current: false },
 ];
 
 function classNames(...classes) {

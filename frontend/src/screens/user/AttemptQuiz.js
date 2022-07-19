@@ -11,8 +11,6 @@ const AttemptQuiz = () => {
             <FinishedQuizCard />
             <FinishedQuizCard />
             <FinishedQuizCard />
-            {/* Map this card Quiz Card */}
-            {/* <QuizCard /> */}
         </div>
     );
 };

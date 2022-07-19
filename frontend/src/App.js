@@ -2,7 +2,25 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
-import { HOME, LOGIN, RUNNING, SIGNUP, USER } from "./routes";
+import {
+    ADD_CATEGORY,
+    ADD_QUIZ,
+    ADMIN,
+    ALL_ATTEMPT,
+    ALL_QUIZZ,
+    HOME,
+    LOGIN,
+    RUNNING,
+    SIGNUP,
+    USER,
+    VIEW_CATEGORY,
+} from "./routes";
+import AdminActivity from "./screens/admin/activity/AdminAcitivity";
+import AddNewCategory from "./screens/admin/add/AddNewCategory";
+import AddNewQuiz from "./screens/admin/add/AddNewQuiz";
+import AdminDashboard from "./screens/admin/AdminDashboard";
+import DisplayAllQuizes from "./screens/admin/all-quiz/DisplayQuizes";
+import ViewCategories from "./screens/admin/view-category/ViewCategories";
 import Home from "./screens/home/Home";
 import Login from "./screens/login/Login";
 import NotFound from "./screens/not-found/NotFound";
@@ -21,17 +39,38 @@ function App() {
             <BrowserRouter>
                 <Header />
                 <Routes>
+                    {/* Global Routes */}
                     <Route path={HOME} element={<Home />} />
                     <Route path={LOGIN} element={<Login />} />
                     <Route path={SIGNUP} element={<SignUp />} />
+
+                    {/* Role: User */}
                     <Route path={USER} element={<UserDashboard />}>
                         <Route index element={<UserActivity />} />
-
                         <Route path=":title" element={<AllQuiz />} />
-                        <Route path="attempt" element={<AttemptQuiz />} />
+                        <Route path={ALL_ATTEMPT} element={<AttemptQuiz />} />
                     </Route>
                     <Route path={RUNNING} element={<OnGoingQuiz />} />
                     <Route path={`${RUNNING}/:id`} element={<FinishedQuiz />} />
+
+                    {/* Role: Admin */}
+                    <Route path={ADMIN} element={<AdminDashboard />}>
+                        <Route index element={<AdminActivity />} />
+                        <Route
+                            path={ADD_CATEGORY}
+                            element={<AddNewCategory />}
+                        />
+                        <Route
+                            path={VIEW_CATEGORY}
+                            element={<ViewCategories />}
+                        />
+                        <Route path={ADD_QUIZ} element={<AddNewQuiz />} />
+                        <Route
+                            path={ALL_QUIZZ}
+                            element={<DisplayAllQuizes />}
+                        />
+                    </Route>
+
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </BrowserRouter>
