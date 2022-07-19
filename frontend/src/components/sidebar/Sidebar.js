@@ -1,21 +1,7 @@
-import { FiBook, FiHome } from "react-icons/fi";
-import { USER } from "../../routes";
-import SidebarLink from "./SidebarLink";
-const Sidebar = () => {
+const Sidebar = ({ component: Component }) => {
     return (
-        <div className=" bg-white p-4 h-full w-full border-r-2 border-gray-300">
-            <SidebarLink
-                path={USER}
-                name="Dashboard"
-                icon={FiHome}
-                active={true}
-            />
-            <SidebarLink
-                path={USER}
-                name="Quizes"
-                active={true}
-                icon={FiBook}
-            />
+        <div className=" bg-gray-50 pt-3 rounded-md px-4 h-full w-full border-r-2 border-r-gray-200 pb-4">
+            <Component />
         </div>
     );
 };

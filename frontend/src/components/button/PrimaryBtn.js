@@ -1,6 +1,6 @@
 const PrimaryBtn = ({
     title,
-    className = "",
+    className = " ",
     onClick,
     loading = false,
     bg = " bg-primary ",
@@ -14,9 +14,10 @@ const PrimaryBtn = ({
                 {...rest}
                 disabled={loading}
                 className={
-                    "disabled:bg-gray-100 disabled:text-gray-500 hover:cursor-pointer disabled:cursor-not-allowed shadow-md shadow-blue-400 px-4 py-2 rounded-md   text-white uppercase hover:bg-blue-400 " +
-                    className +
-                    bg
+                    "disabled:bg-gray-100 bg-opacity-80 hover:bg-opacity-100 disabled:text-gray-500 hover:cursor-pointer disabled:cursor-not-allowed shadow-md shadow-blue-400 px-4 py-2 rounded-md   text-white uppercase  font-bold " +
+                    bg +
+                    " " +
+                    className
                 }
             >
                 {loading ? (

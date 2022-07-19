@@ -14,18 +14,36 @@
   }
   ```
 */
-const InputComponent = ({ label, onChange, error = "", ...rest }) => {
+const InputComponent = ({
+    label,
+    onChange,
+    error = "",
+    className,
+    component = "input",
+    ...rest
+}) => {
     return (
         <div className="mb-4">
-            <label className="block text-gray-500 mb-1">{label}</label>
-            <input
-                placeholder="Email"
-                className={`border-2 p-2 rounded    focus:outline-none ${
-                    error
-                        ? "border-red-500"
-                        : "border-gray-300 focus:border-blue-400"
-                } `}
-            />
+            <label className="block text-gray-700 mb-1">{label}</label>
+            {component === "input" ? (
+                <input
+                    className={`border-2 p-2 rounded bg-opacity-50 focus:bg-opacity-100  bg-gray-200  focus:bg-gray-50    focus:outline-none ${
+                        error
+                            ? "border-red-500"
+                            : "border-gray-300 focus:border-primary"
+                    } ${className}`}
+                    {...rest}
+                />
+            ) : (
+                <textarea
+                    className={`border-1 p-2 rounded  bg-gray-200 focus:bg-gray-50 bg-opacity-50 focus:bg-opacity-100  focus:outline-none ${
+                        error
+                            ? "border-red-500"
+                            : "border-gray-300 focus:border-primary"
+                    } ${className}`}
+                    {...rest}
+                />
+            )}
             {error && (
                 <p className="text-sm mt-2 text-red-50">Enter valid Email</p>
             )}
