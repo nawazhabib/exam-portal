@@ -21,6 +21,7 @@ import AddNewQuiz from "./screens/admin/add/AddNewQuiz";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import DisplayAllQuizes from "./screens/admin/all-quiz/DisplayQuizes";
 import EditQuiz from "./screens/admin/all-quiz/EditQuiz";
+import UserAttempt from "./screens/admin/user-attempt/UserAttempt";
 import ViewCategories from "./screens/admin/view-category/ViewCategories";
 import Home from "./screens/home/Home";
 import Login from "./screens/login/Login";
@@ -57,6 +58,10 @@ function App() {
                     {/* Role: Admin */}
                     <Route path={ADMIN} element={<AdminDashboard />}>
                         <Route index element={<AdminActivity />} />
+                        <Route
+                            path={`${ALL_ATTEMPT}/:id`}
+                            element={<UserAttempt />}
+                        />
                         <Route
                             path={ADD_CATEGORY}
                             element={<AddNewCategory />}

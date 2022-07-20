@@ -6,7 +6,7 @@ import Switch from "../../../components/switch/Switch";
 import Title from "../../../components/text/Title";
 import QuizOptionsCard from "../../user/all-quiz/QuizOptionsCard";
 
-const AllQuizCard = ({ id = 1 }) => {
+const AllQuizCard = ({ id = "1" }) => {
     const [activeQuiz, setActiveQuiz] = useState(false);
     const navigate = useNavigate();
     return (
