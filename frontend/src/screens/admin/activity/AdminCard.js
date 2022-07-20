@@ -9,7 +9,7 @@ const AdminCard = ({ src, title, link }) => {
                     <img
                         src={src}
                         alt="user"
-                        className="w-28 sm:w-40 md:w-48 h-28 sm:h-40 md:h-48 rounded-full"
+                        className="w-28 sm:w-40 md:w-48 h-28 sm:h-40 md:h-48 rounded-full bg-gray-50"
                     />
                     <p className="text-body text-lg mt-2">{title}</p>
                 </div>

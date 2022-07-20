@@ -20,6 +20,7 @@ import AddNewCategory from "./screens/admin/add/AddNewCategory";
 import AddNewQuiz from "./screens/admin/add/AddNewQuiz";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import DisplayAllQuizes from "./screens/admin/all-quiz/DisplayQuizes";
+import EditQuiz from "./screens/admin/all-quiz/EditQuiz";
 import ViewCategories from "./screens/admin/view-category/ViewCategories";
 import Home from "./screens/home/Home";
 import Login from "./screens/login/Login";
@@ -68,6 +69,10 @@ function App() {
                         <Route
                             path={ALL_QUIZZ}
                             element={<DisplayAllQuizes />}
+                        />
+                        <Route
+                            path={`${ALL_QUIZZ}/:id`}
+                            element={<EditQuiz />}
                         />
                     </Route>
 
