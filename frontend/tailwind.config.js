@@ -60,6 +60,7 @@ module.exports = {
             "red-50": "#ff5e57",
             "red-400": "#f87171",
             "red-500": "#f43f5e",
+            error: "#f43f5e",
             "red-700": "#b91c1c",
             green: "#05c46b",
             "green-50": "#0be881",
