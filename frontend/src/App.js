@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
+import PrivateOutlet from "./routes/PrivateOutlet";
 import {
     ADD_CATEGORY,
     ADD_QUIZ,
@@ -14,7 +15,7 @@ import {
     SIGNUP,
     USER,
     VIEW_CATEGORY,
-} from "./routes";
+} from "./routes/routes";
 import AdminActivity from "./screens/admin/activity/AdminAcitivity";
 import AddNewCategory from "./screens/admin/add/AddNewCategory";
 import AddNewQuiz from "./screens/admin/add/AddNewQuiz";
@@ -46,41 +47,48 @@ function App() {
                     <Route path={LOGIN} element={<Login />} />
                     <Route path={SIGNUP} element={<SignUp />} />
 
-                    {/* Role: User */}
-                    <Route path={USER} element={<UserDashboard />}>
-                        <Route index element={<UserActivity />} />
-                        <Route path=":title" element={<AllQuiz />} />
-                        <Route path={ALL_ATTEMPT} element={<AttemptQuiz />} />
-                    </Route>
-                    <Route path={RUNNING} element={<OnGoingQuiz />} />
-                    <Route path={`${RUNNING}/:id`} element={<FinishedQuiz />} />
+                    <Route element={<PrivateOutlet />}>
+                        {/* Role: User */}
+                        <Route path={USER} element={<UserDashboard />}>
+                            <Route index element={<UserActivity />} />
+                            <Route path=":title" element={<AllQuiz />} />
+                            <Route
+                                path={ALL_ATTEMPT}
+                                element={<AttemptQuiz />}
+                            />
+                        </Route>
+                        <Route path={RUNNING} element={<OnGoingQuiz />} />
+                        <Route
+                            path={`${RUNNING}/:id`}
+                            element={<FinishedQuiz />}
+                        />
 
-                    {/* Role: Admin */}
-                    <Route path={ADMIN} element={<AdminDashboard />}>
-                        <Route index element={<AdminActivity />} />
-                        <Route
-                            path={`${ALL_ATTEMPT}/:id`}
-                            element={<UserAttempt />}
-                        />
-                        <Route
-                            path={ADD_CATEGORY}
-                            element={<AddNewCategory />}
-                        />
-                        <Route
-                            path={VIEW_CATEGORY}
-                            element={<ViewCategories />}
-                        />
-                        <Route path={ADD_QUIZ} element={<AddNewQuiz />} />
-                        <Route
-                            path={ALL_QUIZZ}
-                            element={<DisplayAllQuizes />}
-                        />
-                        <Route
-                            path={`${ALL_QUIZZ}/:id`}
-                            element={<EditQuiz />}
-                        />
+                        {/* Role: Admin */}
+                        <Route path={ADMIN} element={<AdminDashboard />}>
+                            <Route index element={<AdminActivity />} />
+                            <Route
+                                path={`${ALL_ATTEMPT}/:id`}
+                                element={<UserAttempt />}
+                            />
+                            <Route
+                                path={ADD_CATEGORY}
+                                element={<AddNewCategory />}
+                            />
+                            <Route
+                                path={VIEW_CATEGORY}
+                                element={<ViewCategories />}
+                            />
+                            <Route path={ADD_QUIZ} element={<AddNewQuiz />} />
+                            <Route
+                                path={ALL_QUIZZ}
+                                element={<DisplayAllQuizes />}
+                            />
+                            <Route
+                                path={`${ALL_QUIZZ}/:id`}
+                                element={<EditQuiz />}
+                            />
+                        </Route>
                     </Route>
-
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </BrowserRouter>

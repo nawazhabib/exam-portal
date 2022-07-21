@@ -3,7 +3,7 @@ import activity from "../../../assets/images/Activity.png";
 import categories from "../../../assets/images/categories.jpg";
 import quizes from "../../../assets/images/Quiz.png";
 import user from "../../../assets/images/users.png";
-import { ADMIN, ALL_QUIZZ, VIEW_CATEGORY } from "../../../routes";
+import { ADMIN, ALL_QUIZZ, VIEW_CATEGORY } from "../../../routes/routes";
 import AdminCard from "./AdminCard";
 const AdminActivity = () => {
     return (

@@ -4,10 +4,17 @@ import Container from "../../components/container/Container";
 import Form from "../../components/form/Form";
 import InputComponent from "../../components/input/Input";
 import { loginData } from "../../constants/constants";
-import { LOGIN_LABEL, SIGNUP, SIGNUP_LABEL } from "../../routes";
+import { useAuthContext } from "../../context/AuthContext";
+import { LOGIN_LABEL, SIGNUP, SIGNUP_LABEL, USER } from "../../routes/routes";
 const { img, link, btn, title, desc } = loginData;
 const Login = () => {
     const navigate = useNavigate();
+    const { state, dispatch } = useAuthContext();
+
+    const handleLogin = () => {
+        // Handle login
+        navigate(USER);
+    };
     return (
         <>
             <Container className="grid place-items-center">
@@ -42,7 +49,7 @@ const Login = () => {
                                         onChange={(e) => null}
                                     />
                                     <PrimaryBtn
-                                        onClick={() => navigate(link)}
+                                        onClick={handleLogin}
                                         title={btn}
                                         className=" w-full "
                                     />
