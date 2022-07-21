@@ -1,6 +1,6 @@
 import { FiBook, FiHome } from "react-icons/fi";
 import { useLocation, useParams } from "react-router-dom";
-import { USER } from "../../routes";
+import { USER } from "../../routes/routes";
 import SidebarLink from "./SidebarLink";
 const UserSidebarLinks = () => {
     const { pathname } = useLocation();

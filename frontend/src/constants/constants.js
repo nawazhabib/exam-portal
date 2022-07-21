@@ -1,7 +1,7 @@
 import HomeImage from "../assets/images/education.svg";
 import LoginImage from "../assets/images/login.svg";
 import SignupImage from "../assets/images/signup.svg";
-import { LOGIN_LABEL, SIGNUP, SIGNUP_LABEL, USER } from "../routes";
+import { LOGIN_LABEL, SIGNUP, SIGNUP_LABEL, USER } from "../routes/routes";
 
 export const homeData = {
     img: HomeImage,

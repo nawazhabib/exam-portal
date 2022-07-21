@@ -13,7 +13,7 @@ import {
     ADMIN,
     ALL_QUIZZ,
     VIEW_CATEGORY,
-} from "../../routes";
+} from "../../routes/routes";
 import SidebarLink from "./SidebarLink";
 
 const AdminSideBarLinks = () => {

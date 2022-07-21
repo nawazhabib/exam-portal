@@ -5,7 +5,7 @@ import Container from "../../components/container/Container";
 import Form from "../../components/form/Form";
 import InputComponent from "../../components/input/Input";
 import { signupData } from "../../constants/constants";
-import { LOGIN, LOGIN_LABEL, SIGNUP_LABEL } from "../../routes";
+import { LOGIN, LOGIN_LABEL, SIGNUP_LABEL } from "../../routes/routes";
 
 const SignUp = () => {
     const navigate = useNavigate();

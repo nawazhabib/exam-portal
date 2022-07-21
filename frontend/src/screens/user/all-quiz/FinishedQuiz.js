@@ -4,7 +4,7 @@ import congrats from "../../../assets/images/congrats1.png";
 import PrimaryBtn from "../../../components/button/PrimaryBtn";
 import Container from "../../../components/container/Container";
 import Title from "../../../components/text/Title";
-import { USER } from "../../../routes";
+import { USER } from "../../../routes/routes";
 
 const FinishedQuiz = () => {
     let navigate = useNavigate();

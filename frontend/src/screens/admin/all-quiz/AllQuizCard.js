@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { BsFillSunriseFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import PrimaryBtn from "../../../components/button/PrimaryBtn";
 import Switch from "../../../components/switch/Switch";
 import Title from "../../../components/text/Title";
 import QuizOptionsCard from "../../user/all-quiz/QuizOptionsCard";
 
-const AllQuizCard = () => {
+const AllQuizCard = ({ id = "1" }) => {
     const [activeQuiz, setActiveQuiz] = useState(false);
+    const navigate = useNavigate();
     return (
         <QuizOptionsCard className="mb-3">
             {/* title */}
@@ -39,6 +42,13 @@ const AllQuizCard = () => {
             </p>
 
             <div>
+                <PrimaryBtn
+                    title="View"
+                    bg="bg-gray-500"
+                    className="py-2 mr-2 mb-2"
+                    onClick={() => navigate(id)}
+                    /* @TODO ==> passs the id here  Wed Jul 20  */
+                />
                 <QuizTag color="green" title="Max Marks 50" />
                 <QuizTag color="primary" title="Number of Question 10" />
             </div>

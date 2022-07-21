@@ -12,7 +12,7 @@ import {
     SIGNUP,
     SIGNUP_LABEL,
     USER,
-} from "../../routes";
+} from "../../routes/routes";
 const navigation = [
     { name: HOME_LABEL, to: HOME, current: true },
     { name: LOGIN_LABEL, to: LOGIN, current: false },

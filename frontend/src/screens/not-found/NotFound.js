@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Container from "../../components/container/Container";
-import { HOME, HOME_LABEL } from "../../routes";
+import { HOME, HOME_LABEL } from "../../routes/routes";
 
 const NotFound = () => {
     return (
