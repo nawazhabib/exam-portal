@@ -31,6 +31,7 @@ import SignUp from "./screens/signup/SingnUp";
 import AllQuiz from "./screens/user/all-quiz/AllQuiz";
 import FinishedQuiz from "./screens/user/all-quiz/FinishedQuiz";
 import OnGoingQuiz from "./screens/user/all-quiz/OnGoingQuiz";
+import SingleQuiz from "./screens/user/all-quiz/SingleQuiz";
 import AttemptQuiz from "./screens/user/AttemptQuiz";
 // import QuizCategories from "./screens/user/QuizCategories";
 import UserActivity from "./screens/user/UserActivity";
@@ -52,6 +53,10 @@ function App() {
                         <Route path={USER} element={<UserDashboard />}>
                             <Route index element={<UserActivity />} />
                             <Route path=":title" element={<AllQuiz />} />
+                            <Route
+                                path="category/:catId"
+                                element={<SingleQuiz />}
+                            />
                             <Route
                                 path={ALL_ATTEMPT}
                                 element={<AttemptQuiz />}

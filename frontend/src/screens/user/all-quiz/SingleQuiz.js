@@ -1,20 +1,23 @@
+import React from "react";
 import { useParams } from "react-router-dom";
 import Message from "../../../components/message/Message";
 import Spinner from "../../../components/spinner/Spinner";
 import Title from "../../../components/text/Title";
 import useNetwork from "../../../hooks/useNetwork";
-import { QUIZ_ENDPOINT } from "../../../routes/routes";
+import { SINGLE_QUIZ_ENDPOINT } from "../../../routes/routes";
 import Cards from "../card/Cards";
+const SingleQuiz = () => {
+    let { catId } = useParams();
 
-const AllQuiz = () => {
-    let { title } = useParams();
-
-    const { data, error, laoding, message } = useNetwork(QUIZ_ENDPOINT, true);
+    const { data, error, laoding, message } = useNetwork(
+        `${SINGLE_QUIZ_ENDPOINT}${catId}`,
+        true
+    );
     return (
         <div>
             {/* title */}
             <Title
-                title={title}
+                title="Dummy Title"
                 className="border-b-2 border-pruple shadow-md py-2  border-primary"
             >
                 Category:{" "}
@@ -48,4 +51,4 @@ const AllQuiz = () => {
     );
 };
 
-export default AllQuiz;
+export default SingleQuiz;

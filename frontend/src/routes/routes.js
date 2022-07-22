@@ -30,3 +30,5 @@ export const ADD_QUIZ = "add-quiz";
 export const REGESTRATION_ENDPOINT = "/user/";
 export const TOKEN_ENDPOINT = "/generate-token";
 export const QUIZ_ENDPOINT = "/quiz/";
+export const CATEGORY_ENDPOINT = "/category/";
+export const SINGLE_QUIZ_ENDPOINT = "/quiz/category/";

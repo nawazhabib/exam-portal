@@ -1,10 +1,10 @@
 import { FiBook, FiHome } from "react-icons/fi";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { USER } from "../../routes/routes";
+import QuizCategoryLinks from "./QuizCategoryLinks";
 import SidebarLink from "./SidebarLink";
 const UserSidebarLinks = () => {
     const { pathname } = useLocation();
-    let { title } = useParams();
     return (
         <>
             <SidebarLink
@@ -23,8 +23,9 @@ const UserSidebarLinks = () => {
                 path="/user/all"
                 name="All Quiz"
                 icon={FiHome}
-                active={pathname === `/user/${title}`}
+                active={pathname === `/user/all`}
             />
+            <QuizCategoryLinks />
         </>
     );
 };

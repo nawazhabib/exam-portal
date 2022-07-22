@@ -24,7 +24,7 @@ const navigation = [
 const authNavigation = [
     { name: HOME_LABEL, to: HOME, current: true },
     { name: "Admin", to: ADMIN, current: false },
-    { name: "User", to: USER, current: false },
+    { name: "Dashboard", to: USER, current: false },
 ];
 
 function classNames(...classes) {
