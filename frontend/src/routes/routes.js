@@ -28,3 +28,5 @@ export const ADD_QUIZ = "add-quiz";
 
 // API END POINT
 export const REGESTRATION_ENDPOINT = "/user/";
+export const TOKEN_ENDPOINT = "/generate-token";
+export const QUIZ_ENDPOINT = "/quiz/";

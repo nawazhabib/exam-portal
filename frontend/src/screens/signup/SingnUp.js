@@ -104,7 +104,7 @@ const SignUp = () => {
             setMessage("");
             setError(false);
             request
-                .authPost({ endpoint: REGESTRATION_ENDPOINT, body: formData })
+                .post({ endpoint: REGESTRATION_ENDPOINT, body: formData })
                 .then((data) => {
                     setLoading(false);
                     setMessage("Registration Success!");

@@ -1,19 +1,96 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PrimaryBtn from "../../components/button/PrimaryBtn";
 import Container from "../../components/container/Container";
 import Form from "../../components/form/Form";
 import InputComponent from "../../components/input/Input";
+import Message from "../../components/message/Message";
 import { loginData } from "../../constants/constants";
+import { passRegEX } from "../../constants/regExContast";
 import { useAuthContext } from "../../context/AuthContext";
-import { LOGIN_LABEL, SIGNUP, SIGNUP_LABEL, USER } from "../../routes/routes";
+import { UPDATE_USER } from "../../context/constants";
+import auth from "../../request/auth";
+import request from "../../request/request";
+import {
+    ERR_MSG,
+    LOGIN_LABEL,
+    REGESTRATION_ENDPOINT,
+    SIGNUP,
+    SIGNUP_LABEL,
+    SUCCESS_MSG,
+    TOKEN_ENDPOINT,
+    USER,
+} from "../../routes/routes";
 const { img, link, btn, title, desc } = loginData;
+
+const validate = (values) => {
+    const errors = {};
+
+    if (!values.username) {
+        errors.username = "Username name is required!";
+    } else if (values.username.length < 4 || values.username.length > 16) {
+        errors.username = "Username must be in 4-16 characters!";
+    }
+
+    if (!values.password) {
+        errors.password = "Password is required!";
+    } else if (!passRegEX.test(values.password)) {
+        errors.password = "Password should be min 6 char";
+    }
+
+    return errors;
+};
+
 const Login = () => {
     const navigate = useNavigate();
     const { state, dispatch } = useAuthContext();
 
-    const handleLogin = () => {
-        // Handle login
-        navigate(USER);
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState(false);
+
+    const [formData, setFormData] = useState({
+        username: "",
+        password: "",
+    });
+    const [formError, setFormError] = useState({
+        username: "",
+        password: "",
+    });
+
+    const handleChangeField = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleLogin = async () => {
+        const getValidFormData = validate(formData);
+        setFormError(getValidFormData);
+        console.log(formData, "formData");
+        if (Object.keys(getValidFormData).length === 0) {
+            setLoading(true);
+            setMessage("");
+            setError(false);
+            try {
+                const response = await auth.login({
+                    endpoint: TOKEN_ENDPOINT,
+                    body: formData,
+                });
+                const endpoint = REGESTRATION_ENDPOINT + formData.username;
+                const portfolioRes = await request.authGet({ endpoint });
+                dispatch({ type: UPDATE_USER, payload: portfolioRes });
+                setLoading(false);
+                setMessage(SUCCESS_MSG);
+                setError(false);
+                navigate(USER);
+            } catch (err) {
+                console.log(err);
+                setMessage(typeof err === "string" ? err : ERR_MSG);
+                setError(true);
+                setLoading(false);
+            }
+        }
     };
     return (
         <>
@@ -37,22 +114,32 @@ const Login = () => {
                                     head={LOGIN_LABEL}
                                 >
                                     <InputComponent
-                                        placeholder="User Name"
-                                        label={"Enter unique username"}
-                                        error=""
-                                        onChange={(e) => null}
+                                        placeholder="Enter username"
+                                        label={"Username"}
+                                        error={formError.username}
+                                        value={formData.username}
+                                        name="username"
+                                        onChange={handleChangeField}
                                     />
                                     <InputComponent
                                         placeholder="Password"
                                         label="Password"
-                                        error=""
-                                        onChange={(e) => null}
+                                        error={formError.password}
+                                        value={formData.password}
+                                        name="password"
+                                        onChange={handleChangeField}
                                     />
                                     <PrimaryBtn
                                         onClick={handleLogin}
                                         title={btn}
                                         className=" w-full "
+                                        loading={loading}
                                     />
+                                    {message && (
+                                        <Message error={error}>
+                                            {message}
+                                        </Message>
+                                    )}
                                 </Form>
                             </div>
                         </div>

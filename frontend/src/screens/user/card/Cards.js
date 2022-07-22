@@ -1,9 +1,9 @@
 import React from "react";
 import PrimaryBtn from "../../../components/button/PrimaryBtn";
 
-const Cards = ({ title, marks, desc, questions }) => {
+const Cards = ({ title, marks, desc, questions, quizId }) => {
     return (
-        <div className="bg-white border  border-gray-200 shadow-lg p-3 rounded-md">
+        <div className="bg-white border  border-gray-200 shadow-lg p-3 rounded-md h-full ">
             <h1 className="text-gray-700 text-xl capitalize font-semibold mb-4 ">
                 {title}
             </h1>
