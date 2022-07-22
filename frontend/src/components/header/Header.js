@@ -2,8 +2,9 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Fragment } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
+import auth from "../../request/auth";
 import {
     ADMIN,
     HOME,
@@ -32,9 +33,8 @@ function classNames(...classes) {
 
 export default function Header() {
     let { pathname } = useLocation();
-    const { state } = useAuthContext();
-
-    console.log("admin", state?.user?.authorities[0]?.authority);
+    const { state, dispatch } = useAuthContext();
+    const navigate = useNavigate();
 
     return (
         <Disclosure as="nav" className="bg-white  border-b-gray-200 shadow-sm">
@@ -192,6 +192,12 @@ export default function Header() {
                                                 {({ active }) => (
                                                     <div
                                                         role="button"
+                                                        onClick={() =>
+                                                            auth.logut(
+                                                                dispatch,
+                                                                navigate
+                                                            )
+                                                        }
                                                         /* @TODO ==> Change this link  Fri Jul 01  */
                                                         className={classNames(
                                                             "block px-4 py-2 text-sm bg-red-400 text-white rounded-md font-bold cursor-pointer hover:bg-red-500  hover:text-white "

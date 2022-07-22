@@ -1,4 +1,5 @@
-import { BASE_URL, ERR_MSG } from "../routes/routes";
+import { REMOVE_USER } from "../context/constants";
+import { BASE_URL, ERR_MSG, HOME } from "../routes/routes";
 import { defaultHeader } from "./request";
 
 const auth = (() => {
@@ -37,9 +38,16 @@ const auth = (() => {
         });
     };
 
+    const logut = (dispatch, navigate) => {
+        removeToken();
+        dispatch({ type: REMOVE_USER });
+        navigate(HOME);
+    };
+
     return {
         login,
         getToken,
+        logut,
     };
 })();
 export default auth;

@@ -84,9 +84,9 @@ const AllQuiz = () => {
                             <div key={item.categoryID} className="">
                                 <Cards
                                     title={item.title}
-                                    marks={item.marks}
+                                    marks={item.maxMark}
                                     desc={item.description}
-                                    questions={item.question}
+                                    questions={item.numberOfQuestions}
                                     quizId={item.quizID}
                                 />
                             </div>
