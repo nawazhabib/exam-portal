@@ -31,9 +31,6 @@ public class User implements UserDetails {
     @Size(min = 4, max = 16, message = "User name must be 4-16 charachtes")
     private String username;
 
-//    @Size(min = 6, max = 12, message = "Password must be 6-24 charachtes")
-//    @NotNull
-
     @NotBlank(message = "Password is required")
     @Size(min = 6, max = 65, message = "Password should have min 6 characters")
     private String password;
