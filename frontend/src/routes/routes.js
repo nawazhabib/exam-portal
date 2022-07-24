@@ -32,3 +32,4 @@ export const TOKEN_ENDPOINT = "/generate-token";
 export const QUIZ_ENDPOINT = "/quiz/";
 export const CATEGORY_ENDPOINT = "/category/";
 export const SINGLE_QUIZ_ENDPOINT = "/quiz/category/";
+export const QUESTION_ENDPOINT = "/question";

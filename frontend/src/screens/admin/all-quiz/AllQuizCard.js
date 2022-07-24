@@ -2,13 +2,54 @@ import React, { useState } from "react";
 import { BsFillSunriseFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import PrimaryBtn from "../../../components/button/PrimaryBtn";
+import Spinner from "../../../components/spinner/Spinner";
 import Switch from "../../../components/switch/Switch";
 import Title from "../../../components/text/Title";
+import request from "../../../request/request";
+import { ADMIN, ALL_QUIZZ, QUIZ_ENDPOINT } from "../../../routes/routes";
 import QuizOptionsCard from "../../user/all-quiz/QuizOptionsCard";
-
-const AllQuizCard = ({ id, marks, questions, title, active, description }) => {
+// quizID={item.quizID}
+// maxMark={item.maxMark}
+// numberOfQuestions={item.numberOfQuestions}
+// title={item.title}
+// active={item.active}
+// description={item.description}
+// category={item.category.title}
+const AllQuizCard = ({
+    quizID,
+    maxMark,
+    numberOfQuestions,
+    title,
+    active,
+    description,
+    category,
+}) => {
     const [activeQuiz, setActiveQuiz] = useState(active);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const handleUpdate = () => {
+        const body = {
+            quizID,
+            maxMark,
+            numberOfQuestions,
+            title,
+            active: !activeQuiz,
+            description,
+            category,
+        };
+        setLoading(true);
+        request
+            .authPost({ endpoint: QUIZ_ENDPOINT, body })
+            .then((res) => {
+                setLoading(false);
+                setActiveQuiz((prev) => !prev);
+            })
+            .catch((error) => {
+                console.log(error);
+                /* @TODO ==> Show error to somewhere like toast  Sun Jul 24  */
+                setLoading(false);
+            });
+    };
     return (
         <QuizOptionsCard className="mb-3">
             {/* title */}
@@ -21,18 +62,22 @@ const AllQuizCard = ({ id, marks, questions, title, active, description }) => {
                     <Title
                         className="capitalize mb-0 text-lg md:text-xl lg:text-xl "
                         title={title}
-                        subtitle="General Knowledge"
+                        subtitle={category.title}
                     />
                 </div>
 
                 <div>
-                    <Switch
-                        label="Publish"
-                        value={activeQuiz}
-                        checked={activeQuiz}
-                        onChange={() => setActiveQuiz((prev) => !prev)}
-                        id={id}
-                    />
+                    {loading ? (
+                        <Spinner size={6} />
+                    ) : (
+                        <Switch
+                            label={activeQuiz ? "Published" : "Publish"}
+                            value={activeQuiz}
+                            checked={activeQuiz}
+                            onChange={handleUpdate}
+                            id={quizID}
+                        />
+                    )}
                 </div>
             </div>
             <p className="text-gray-700 mb-4 text-gr">{description}</p>
@@ -42,13 +87,17 @@ const AllQuizCard = ({ id, marks, questions, title, active, description }) => {
                     title="View"
                     bg="bg-gray-500"
                     className="py-2 mr-2 mb-2"
-                    onClick={() => navigate(id)}
+                    onClick={() =>
+                        navigate(`${ADMIN}/${ALL_QUIZZ}/${quizID}`, {
+                            state: { title: category.title },
+                        })
+                    }
                     /* @TODO ==> passs the id here  Wed Jul 20  */
                 />
-                <QuizTag color="green" title={`Max Marks: ${marks}`} />
+                <QuizTag color="green" title={`Max Marks: ${maxMark}`} />
                 <QuizTag
                     color="primary"
-                    title={`Number of Questions: ${questions}`}
+                    title={`Number of Questions: ${numberOfQuestions}`}
                 />
             </div>
         </QuizOptionsCard>

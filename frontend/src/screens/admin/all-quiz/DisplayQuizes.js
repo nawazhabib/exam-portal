@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputComponent from "../../../components/input/Input";
 import Message from "../../../components/message/Message";
 import Spinner from "../../../components/spinner/Spinner";
@@ -9,6 +9,18 @@ import AllQuizCard from "./AllQuizCard";
 const DisplayAllQuizes = () => {
     const [queryString, setQueryString] = useState("");
     const { error, loading, data, message } = useNetwork(QUIZ_ENDPOINT);
+    const [quiz, setQuiz] = useState(data ? data : []);
+
+    useEffect(() => {
+        if (data !== null && data.length > 0 && !queryString) setQuiz(data);
+        else if (data !== null && data.length > 0 && queryString) {
+            const filtered = data.filter((item) =>
+                item.title.toLowerCase().includes(queryString)
+            );
+            setQuiz(filtered);
+        }
+    }, [data, queryString, quiz]);
+
     return (
         <div>
             <div className="bg-white w-full p-4 rounded-md shadow-md mb-10 ">
@@ -26,19 +38,22 @@ const DisplayAllQuizes = () => {
                     <Spinner />
                 ) : message ? (
                     <Message error={error}>{message}</Message>
-                ) : data && data.length > 0 ? (
-                    data.map((item) => (
+                ) : quiz && quiz.length > 0 ? (
+                    quiz.map((item) => (
                         <AllQuizCard
                             key={item.quizID}
-                            id={item.quizID}
-                            marks={item.maxMark}
-                            questions={item.numberOfQuestions}
+                            quizID={item.quizID}
+                            maxMark={item.maxMark}
+                            numberOfQuestions={item.numberOfQuestions}
                             title={item.title}
                             active={item.active}
                             description={item.description}
+                            category={item.category}
                         />
                     ))
-                ) : null}
+                ) : (
+                    <Message error>No Quiz Found!</Message>
+                )}
             </div>
         </div>
     );

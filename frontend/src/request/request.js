@@ -92,10 +92,36 @@ const request = (() => {
         });
     };
 
+    const getAuthDelete = ({ endpoint, headers = {}, body }) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                console.log("Sending Request", `${BASE_URL}${endpoint}`);
+                console.log("Endpoint", endpoint);
+                const token = auth.getToken();
+                if (token) {
+                    await fetch(`${BASE_URL}${endpoint}`, {
+                        method: "DELETE",
+                        headers: {
+                            ...defaultHeader,
+                            Authorization: `Bearer ${token}`,
+                            ...headers,
+                        },
+                    });
+                    resolve(true);
+                } else {
+                    reject(TOKEN_ERR);
+                }
+            } catch (error) {
+                reject(typeof error === "string" ? error : ERR_MSG);
+            }
+        });
+    };
+
     return {
         post: getPost,
         authPost: getAuthPost,
         authGet: getAuthRequest,
+        authDelete: getAuthDelete,
     };
 })();
 
