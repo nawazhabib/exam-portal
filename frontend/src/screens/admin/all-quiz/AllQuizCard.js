@@ -6,8 +6,8 @@ import Switch from "../../../components/switch/Switch";
 import Title from "../../../components/text/Title";
 import QuizOptionsCard from "../../user/all-quiz/QuizOptionsCard";
 
-const AllQuizCard = ({ id = "1" }) => {
-    const [activeQuiz, setActiveQuiz] = useState(false);
+const AllQuizCard = ({ id, marks, questions, title, active, description }) => {
+    const [activeQuiz, setActiveQuiz] = useState(active);
     const navigate = useNavigate();
     return (
         <QuizOptionsCard className="mb-3">
@@ -20,7 +20,7 @@ const AllQuizCard = ({ id = "1" }) => {
 
                     <Title
                         className="capitalize mb-0 text-lg md:text-xl lg:text-xl "
-                        title="Quiz Title"
+                        title={title}
                         subtitle="General Knowledge"
                     />
                 </div>
@@ -31,15 +31,11 @@ const AllQuizCard = ({ id = "1" }) => {
                         value={activeQuiz}
                         checked={activeQuiz}
                         onChange={() => setActiveQuiz((prev) => !prev)}
-                        id
+                        id={id}
                     />
                 </div>
             </div>
-            <p className="text-gray-700 mb-4 text-gr">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
-                iure hic nulla quod ad error maxime, veritatis laborum incidunt
-                tempora!
-            </p>
+            <p className="text-gray-700 mb-4 text-gr">{description}</p>
 
             <div>
                 <PrimaryBtn
@@ -49,8 +45,11 @@ const AllQuizCard = ({ id = "1" }) => {
                     onClick={() => navigate(id)}
                     /* @TODO ==> passs the id here  Wed Jul 20  */
                 />
-                <QuizTag color="green" title="Max Marks 50" />
-                <QuizTag color="primary" title="Number of Question 10" />
+                <QuizTag color="green" title={`Max Marks: ${marks}`} />
+                <QuizTag
+                    color="primary"
+                    title={`Number of Questions: ${questions}`}
+                />
             </div>
         </QuizOptionsCard>
     );

@@ -29,13 +29,16 @@ const request = (() => {
         return new Promise(async (resolve, reject) => {
             try {
                 console.log("Sending Request", `${BASE_URL}${endpoint}`);
+                console.log("Endpoint", endpoint);
                 const token = auth.getToken();
                 if (token) {
                     const response = await fetch(`${BASE_URL}${endpoint}`, {
                         method: "POST",
                         body: JSON.stringify(body),
                         headers: {
+                            ...defaultHeader,
                             Authorization: `Bearer ${token}`,
+                            ...headers,
                         },
                     });
                     const data = await response.json();

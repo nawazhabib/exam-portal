@@ -9,7 +9,7 @@ import Cards from "../card/Cards";
 const SingleQuiz = () => {
     let { catId } = useParams();
 
-    const { data, error, laoding, message } = useNetwork(
+    const { data, error, loading, message } = useNetwork(
         `${SINGLE_QUIZ_ENDPOINT}${catId}`,
         true
     );
@@ -24,7 +24,7 @@ const SingleQuiz = () => {
             </Title>
 
             {/* Cards */}
-            {laoding ? (
+            {loading ? (
                 <Spinner />
             ) : message ? (
                 <Message error={error}>{message}</Message>

@@ -4,7 +4,7 @@ import { ERR_MSG } from "../routes/routes";
 
 const useNetwork = (endpoint, get = true, body) => {
     const [data, setData] = useState(null);
-    const [laoding, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [message, setMessage] = useState("");
     const requestService = get ? request.authGet : request.authPost;
@@ -24,7 +24,7 @@ const useNetwork = (endpoint, get = true, body) => {
                 setMessage(typeof err === "string" ? err : ERR_MSG);
             });
     }, [body, endpoint, requestService]);
-    return { laoding, error, data, message };
+    return { loading, error, data, message };
 };
 
 export default useNetwork;

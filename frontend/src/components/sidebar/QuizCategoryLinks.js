@@ -8,7 +8,7 @@ import SidebarLink from "./SidebarLink";
 const QuizCategoryLinks = () => {
     let { catId } = useParams();
     console.log(catId, "params");
-    const { laoding, data, error, message } = useNetwork(CATEGORY_ENDPOINT);
+    const { loading, data, error, message } = useNetwork(CATEGORY_ENDPOINT);
     console.log(data?.[0]?.categoryID, "data");
     return (
         <div>
