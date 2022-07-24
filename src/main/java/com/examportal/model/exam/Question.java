@@ -28,7 +28,7 @@ public class Question {
     @Transient
     private String givenAnswer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Quiz quiz;
 
     public Question() {
