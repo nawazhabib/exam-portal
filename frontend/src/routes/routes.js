@@ -2,6 +2,7 @@
 export const BASE_URL = "http://localhost:8080";
 export const ERR_MSG = "There is something went wrong!";
 export const SUCCESS_MSG = "Success!";
+export const REQUIRED = "This field is required!";
 // path All
 export const HOME = "/";
 export const LOGIN = "/login";

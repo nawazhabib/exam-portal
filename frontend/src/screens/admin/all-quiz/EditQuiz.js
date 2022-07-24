@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Message from "../../../components/message/Message";
 import Spinner from "../../../components/spinner/Spinner";
+import Toast from "../../../components/Toast/Toast";
 import request from "../../../request/request";
 import { ERR_MSG, QUIZ_ENDPOINT } from "../../../routes/routes";
 import EditQuizButton from "./EditQuizButton";
@@ -44,12 +45,19 @@ const EditQuiz = () => {
     }, []);
 
     console.log(data, "DATA ");
+    const [errorAddQuiz, setErrorAddQuiz] = useState("");
+    const [messageAddQuiz, setMessageAddQuiz] = useState("");
     return (
         <div>
             <h1 className=" texl-lg sm:text-2xl mb-2 bg-white p-4 shadow-md rounded-md border-b-2 border-primary">
                 {location?.state?.title}
             </h1>
-            <EditQuizButton />
+            <EditQuizButton
+                onUpdate={loadQuizQuestion}
+                quizID={{ quizID: Number(id) }}
+                setError={setErrorAddQuiz}
+                setMessage={setMessageAddQuiz}
+            />
             {loading ? (
                 <Spinner />
             ) : message ? (
@@ -64,6 +72,9 @@ const EditQuiz = () => {
                 ))
             ) : (
                 <Message error>No Question Found Found!</Message>
+            )}
+            {messageAddQuiz && (
+                <Toast message={messageAddQuiz} error={errorAddQuiz} />
             )}
         </div>
     );
