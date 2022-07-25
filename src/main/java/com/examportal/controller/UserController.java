@@ -7,6 +7,7 @@ import com.examportal.model.User;
 import com.examportal.model.UserRole;
 import com.examportal.service.UserService;
 
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,9 @@ public class UserController {
 
 //        encoding password with bCyptPasswordEncoder
         user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+
+        String verificationCode = RandomString.make(64);
+        user.setVerification_code(verificationCode);
 
         Set<UserRole> roleSet = new HashSet<>();
 

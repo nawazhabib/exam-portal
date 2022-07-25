@@ -54,7 +54,9 @@ public class User implements UserDetails {
     private String phone;
 
     private String profile;
-    private boolean enabled = true;
+    private boolean enabled = false;
+    @Column(updatable = false)
+    private String verification_code;
 
     //   generate one user have many roles
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
