@@ -1,5 +1,6 @@
 package com.examportal.controller;
 
+import com.examportal.configuration.Utility;
 import com.examportal.exception.EmailFoundException;
 import com.examportal.exception.UserFoundException;
 import com.examportal.model.Role;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,15 +38,21 @@ public class UserController {
 
     //    creating user with normal role
     @PostMapping("/")
-    public User createUser(@Valid @RequestBody User user) throws Exception {
+    public User createUser(@Valid @RequestBody User user, HttpServletRequest request) throws Exception {
 
         user.setProfile("default.png");
 
 //        encoding password with bCyptPasswordEncoder
         user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
 
+//        generate random string as verifactioncode
         String verificationCode = RandomString.make(64);
         user.setVerification_code(verificationCode);
+
+//        send verification code
+        String siteURL = Utility.getSiteUrl(request);
+        userService.sendVerificationEmail(user, siteURL);
+
 
         Set<UserRole> roleSet = new HashSet<>();
 

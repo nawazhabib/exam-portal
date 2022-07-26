@@ -30,9 +30,7 @@ public class ExamPortalServerApplication implements CommandLineRunner {
     Logger logger = LoggerFactory.getLogger(ExamPortalServerApplication.class);
 
     public static void main(String[] args) {
-
         SpringApplication.run(ExamPortalServerApplication.class, args);
-        System.out.println("Project Is Running");
     }
 
     @Override

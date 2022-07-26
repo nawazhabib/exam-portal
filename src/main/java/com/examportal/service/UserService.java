@@ -3,6 +3,8 @@ package com.examportal.service;
 import com.examportal.model.User;
 import com.examportal.model.UserRole;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.util.Set;
 
 public interface UserService {
@@ -18,4 +20,7 @@ public interface UserService {
 
     //update user
     public User updateUser(User user, long userId);
+
+//    send email verification code
+    public void sendVerificationEmail (User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
 }
