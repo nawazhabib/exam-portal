@@ -52,6 +52,33 @@ const request = (() => {
             }
         });
     };
+    const getAuthPut = ({ endpoint, headers = {}, body }) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                console.log("Sending Request", `${BASE_URL}${endpoint}`);
+                console.log("Endpoint", endpoint);
+                const token = auth.getToken();
+                if (token) {
+                    const response = await fetch(`${BASE_URL}${endpoint}`, {
+                        method: "PUT",
+                        body: JSON.stringify(body),
+                        headers: {
+                            ...defaultHeader,
+                            Authorization: `Bearer ${token}`,
+                            ...headers,
+                        },
+                    });
+                    const data = await response.json();
+                    if (data?.error) reject(data.error);
+                    resolve(data);
+                } else {
+                    reject(TOKEN_ERR);
+                }
+            } catch (error) {
+                reject(typeof error === "string" ? error : ERR_MSG);
+            }
+        });
+    };
 
     const getAuthRequest = ({ endpoint, headers = {} }) => {
         return new Promise(async (resolve, reject) => {
@@ -121,6 +148,7 @@ const request = (() => {
         post: getPost,
         authPost: getAuthPost,
         authGet: getAuthRequest,
+        authPut: getAuthPut,
         authDelete: getAuthDelete,
     };
 })();

@@ -7,6 +7,7 @@ export const REQUIRED = "This field is required!";
 export const HOME = "/";
 export const LOGIN = "/login";
 export const SIGNUP = "/signup";
+export const PROFILE = "/profile";
 
 // path User
 export const USER = "/user";

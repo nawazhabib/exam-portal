@@ -11,6 +11,7 @@ import {
     HOME_LABEL,
     LOGIN,
     LOGIN_LABEL,
+    PROFILE,
     SIGNUP,
     SIGNUP_LABEL,
     USER,
@@ -69,7 +70,7 @@ export default function Header() {
                                         Exam Portal
                                     </Link>
                                 </div>
-                                <div className="hidden sm:block  sm:ml-6">
+                                <div className="hidden sm:flex items-center  sm:ml-6">
                                     <div className="flex space-x-4">
                                         {state.user
                                             ? authNavigation.map((item) => (
@@ -126,7 +127,7 @@ export default function Header() {
                             </div>
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                                 {state?.user && (
-                                    <div className="text-base text-primary font-bold ml-3 ">
+                                    <div className=" hidden sm:block text-base text-primary font-bold ml-3 ">
                                         {state?.user?.username}
                                     </div>
                                 )}
@@ -160,7 +161,7 @@ export default function Header() {
                                                 {({ active }) => (
                                                     <Link
                                                         /* @TODO ==> Change this link  Fri Jul 01  */
-                                                        to={HOME}
+                                                        to={PROFILE}
                                                         className={classNames(
                                                             active
                                                                 ? "bg-gray-100"

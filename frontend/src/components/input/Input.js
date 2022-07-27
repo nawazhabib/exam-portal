@@ -28,7 +28,7 @@ const InputComponent = ({
             {component === "input" ? (
                 <input
                     onChange={onChange}
-                    className={`border-2 p-2 rounded bg-opacity-50 focus:bg-opacity-100  bg-gray-200  focus:bg-gray-50    focus:outline-none ${
+                    className={`border-2 p-2  rounded bg-opacity-50 focus:bg-opacity-100  bg-gray-200  focus:bg-gray-50    focus:outline-none ${
                         error
                             ? "border-red-500"
                             : "border-gray-300 focus:border-primary"

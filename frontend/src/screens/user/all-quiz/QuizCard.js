@@ -3,7 +3,7 @@ import Title from "../../../components/text/Title";
 import QuizInput from "./QuizInput";
 import QuizOptionsCard from "./QuizOptionsCard";
 
-const QuizCard = () => {
+const QuizCard = ({ id, content, option1, option2, option3, option4 }) => {
     const handleChanage = (event) => {
         const name = event.target.name;
         console.log(name);
@@ -11,16 +11,28 @@ const QuizCard = () => {
     };
     return (
         <QuizOptionsCard>
-            <Title subtitle="What is Class" />
+            <Title subtitle={content} />
             <div className="grid md:grid-cols-2">
-                {[1, 2, 3, 4].map((item, index) => (
-                    <QuizInput
-                        key={index}
-                        name="quiz"
-                        id={item}
-                        onChnage={handleChanage}
-                    />
-                ))}
+                <QuizInput
+                    name={id}
+                    id={`${id}option1`}
+                    onChnage={handleChanage}
+                />
+                <QuizInput
+                    name={id}
+                    id={`${id}option2`}
+                    onChnage={handleChanage}
+                />
+                <QuizInput
+                    name={id}
+                    id={`${id}option3`}
+                    onChnage={handleChanage}
+                />
+                <QuizInput
+                    name={id}
+                    id={`${id}option4`}
+                    onChnage={handleChanage}
+                />
             </div>
         </QuizOptionsCard>
     );

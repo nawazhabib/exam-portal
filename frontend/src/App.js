@@ -11,6 +11,7 @@ import {
     ALL_QUIZZ,
     HOME,
     LOGIN,
+    PROFILE,
     RUNNING,
     SIGNUP,
     USER,
@@ -27,6 +28,7 @@ import ViewCategories from "./screens/admin/view-category/ViewCategories";
 import Home from "./screens/home/Home";
 import Login from "./screens/login/Login";
 import NotFound from "./screens/not-found/NotFound";
+import Profile from "./screens/profile/Profile";
 import SignUp from "./screens/signup/SingnUp";
 import AllQuiz from "./screens/user/all-quiz/AllQuiz";
 import FinishedQuiz from "./screens/user/all-quiz/FinishedQuiz";
@@ -49,6 +51,7 @@ function App() {
                     <Route path={SIGNUP} element={<SignUp />} />
 
                     <Route element={<PrivateOutlet />}>
+                        <Route path={PROFILE} element={<Profile />} />
                         {/* Role: User */}
                         <Route path={USER} element={<UserDashboard />}>
                             <Route index element={<UserActivity />} />
