@@ -5,6 +5,7 @@ import InputComponent from "../../components/input/Input";
 import Message from "../../components/message/Message";
 import { passRegEX, phoneRegEx } from "../../constants/regExContast";
 import { useAuthContext } from "../../context/AuthContext";
+import { UPDATE_USER } from "../../context/constants";
 import request from "../../request/request";
 import { USER } from "../../routes/routes";
 
@@ -100,6 +101,8 @@ const Profile = () => {
                         setError(false);
                         setLoading(false);
                         setMessage("Profile update success!");
+                        dispatch({ type: UPDATE_USER, payload: res });
+                        setFormData({ ...formData, password: "" });
                     }
                 })
                 .catch((err) => {
