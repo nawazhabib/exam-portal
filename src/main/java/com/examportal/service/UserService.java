@@ -23,4 +23,8 @@ public interface UserService {
 
 //    send email verification code
     public void sendVerificationEmail (User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
+
+//    verify user
+    public boolean verify(String verificationCode);
+
 }

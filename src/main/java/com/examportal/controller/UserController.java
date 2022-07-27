@@ -10,6 +10,7 @@ import com.examportal.service.UserService;
 
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -47,7 +48,7 @@ public class UserController {
 
 //        generate random string as verifactioncode
         String verificationCode = RandomString.make(64);
-        user.setVerification_code(verificationCode);
+        user.setVerificationCode(verificationCode);
 
 //        send verification code
         String siteURL = Utility.getSiteUrl(request);
@@ -87,6 +88,15 @@ public class UserController {
         return this.userService.updateUser(user, userID);
     }
 
+//    verify user
+    @GetMapping("/verify")
+    public String verifyAcount(@Param("code") String code){
+        if (userService.verify(code)) {
+            return "verify_success";
+        } else {
+            return "verify_fail";
+        }
+    }
 
     @ExceptionHandler(UserFoundException.class)
     public ResponseEntity<Object> exceptionHandler(UserFoundException e) {

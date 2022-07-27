@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -48,6 +47,9 @@ public class UserServiceImpl implements UserService {
     public User createUser(User user, Set<UserRole> userRoles) throws Exception {
         User user1 = this.userRepository.findByUsername(user.getUsername());
         User user2 = this.userRepository.findByEmail(user.getEmail());
+
+        user.setEnabled(false);
+
         if (user1 != null || user2 != null) {
             if (user2 != null) {
                 throw new EmailFoundException();
@@ -96,26 +98,49 @@ public class UserServiceImpl implements UserService {
     //    send verification code
     @Override
     public void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
+
+        String toAddress = user.getEmail();
+        String fromAddress = "examportal947@gmail.com";
+        String senderName = "Exam Portal";
         String subject = "Please verify your registration";
-        String senderName = "Examp portal";
-        String mailContent = "<p>Hello " + user.getFirstName() + ",</p>";
-        mailContent += "<p>Please click the link below to verify to your registration:</P>";
-
-        String verifyURL = siteURL + "verify?code=" + user.getVerification_code();
-        mailContent += "<h3><a =\"herf=" + siteURL + "\">VERIFY</a><h3>";
-
-        mailContent += "<p>Thank you<br> Exam Portal";
+        String content = "Dear [[name]],<br>"
+                + "Please click the link below to verify your registration:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+                + "Thank you,<br>"
+                + "Exam Portal";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("examportal947@gmail.com", senderName);
-        helper.setTo(user.getEmail());
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
         helper.setSubject(subject);
-        helper.setText(mailContent, true);
+
+        content = content.replace("[[name]]", user.getFirstName());
+        String verifyURL = siteURL + "/user/verify?code=" + user.getVerificationCode();
+
+        content = content.replace("[[URL]]", verifyURL);
+
+        helper.setText(content, true);
 
         mailSender.send(message);
     }
+
+//       verify user by verification code
+    @Override
+    public boolean verify(String verificationCode){
+        User user = userRepository.findByVerificationCode(verificationCode);
+
+        if(user == null || user.isEnabled()){
+            return false;
+        } else{
+            user.setVerificationCode(null);
+            user.setEnabled(true);
+            userRepository.save(user);
+            return true;
+        }
+    }
+
 
 
 }
