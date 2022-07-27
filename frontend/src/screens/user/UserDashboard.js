@@ -1,11 +1,13 @@
 import { Outlet } from "react-router-dom";
 import Container from "../../components/container/Container";
+import SideMenu from "../../components/side-drawer/SideMenu";
 import Sidebar from "../../components/sidebar/Sidebar";
 import UserSidebarLinks from "../../components/sidebar/UserSidebarLinks";
 
 const UserDashboard = () => {
     return (
         <Container className="pt-4 h-full">
+            <SideMenu component={UserSidebarLinks} />
             <div className="  sm:flex  min-h-90">
                 <div className=" hidden  sm:flex  min-h-90">
                     <Sidebar component={UserSidebarLinks} />

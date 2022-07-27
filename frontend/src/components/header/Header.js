@@ -176,7 +176,7 @@ export default function Header() {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <Link
-                                                        to={HOME}
+                                                        to={"/user"}
                                                         /* @TODO ==> Change this link  Fri Jul 01  */
                                                         className={classNames(
                                                             active
@@ -185,7 +185,23 @@ export default function Header() {
                                                             "block px-4 py-2 text-sm text-gray-700"
                                                         )}
                                                     >
-                                                        Settings
+                                                        Dashboard
+                                                    </Link>
+                                                )}
+                                            </Menu.Item>
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                    <Link
+                                                        to={ADMIN}
+                                                        /* @TODO ==> Change this link  Fri Jul 01  */
+                                                        className={classNames(
+                                                            active
+                                                                ? "bg-gray-100"
+                                                                : "",
+                                                            "block px-4 py-2 text-sm text-gray-700"
+                                                        )}
+                                                    >
+                                                        Admin
                                                     </Link>
                                                 )}
                                             </Menu.Item>

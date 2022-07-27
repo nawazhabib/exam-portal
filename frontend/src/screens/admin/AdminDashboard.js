@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Container from "../../components/container/Container";
+import SideMenu from "../../components/side-drawer/SideMenu";
 import AdminSideBarLinks from "../../components/sidebar/AdminSideBarLinks";
 import Sidebar from "../../components/sidebar/Sidebar";
 
@@ -7,6 +8,8 @@ const AdminDashboard = () => {
     return (
         <Container className="pt-4 h-full">
             <div className=" sm:flex  min-h-90">
+                <SideMenu component={AdminSideBarLinks} />
+
                 <div className=" hidden  sm:flex  min-h-90 w-auto">
                     <Sidebar component={AdminSideBarLinks} />
                 </div>
