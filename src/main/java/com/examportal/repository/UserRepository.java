@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     public User findByVerificationCode(String code);
 
+    public User findByResetPasswordToken(String resetToken);
+
 }

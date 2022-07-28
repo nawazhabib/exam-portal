@@ -3,6 +3,7 @@ package com.examportal.service.serviceImplement;
 import com.examportal.exception.EmailFoundException;
 import com.examportal.exception.UserFoundException;
 
+import com.examportal.exception.UserNotFountException;
 import com.examportal.model.User;
 import com.examportal.model.UserRole;
 
@@ -84,13 +85,13 @@ public class UserServiceImpl implements UserService {
     public User updateUser(User user, long userId) {
         User userUpdate = this.userRepository.findById(userId).get();
 
-        userUpdate.setUsername(user.getUsername());
-        userUpdate.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+//        userUpdate.setUsername(user.getUsername());
+//        userUpdate.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
         userUpdate.setFirstName(user.getFirstName());
         userUpdate.setLastName(user.getLastName());
-        userUpdate.setEmail(user.getEmail());
+//        userUpdate.setEmail(user.getEmail());
         userUpdate.setPhone(user.getPhone());
-        userUpdate.setProfile(user.getProfile());
+//        userUpdate.setProfile(user.getProfile());
 
         return this.userRepository.save(userUpdate);
     }
@@ -126,14 +127,14 @@ public class UserServiceImpl implements UserService {
         mailSender.send(message);
     }
 
-//       verify user by verification code
+    //       verify user by verification code
     @Override
-    public boolean verify(String verificationCode){
+    public boolean verify(String verificationCode) {
         User user = userRepository.findByVerificationCode(verificationCode);
 
-        if(user == null || user.isEnabled()){
+        if (user == null || user.isEnabled()) {
             return false;
-        } else{
+        } else {
             user.setVerificationCode(null);
             user.setEnabled(true);
             userRepository.save(user);
@@ -141,6 +142,30 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void updateResetPasswordToken(String token, String email) throws UserNotFountException {
+        User user = userRepository.findByEmail(email);
+
+        if (user != null) {
+            user.setResetPasswordToken(token);
+            userRepository.save(user);
+        } else {
+            throw new UserNotFountException("User not found with this email: " + email);
+        }
+    }
+
+    @Override
+    public User getResetPasswordToken(String resetToken) {
+        return userRepository.findByResetPasswordToken(resetToken);
+    }
+
+    @Override
+    public void updatePassword(User user, String newPassword) {
+        user.setPassword(this.bCryptPasswordEncoder.encode(newPassword));
+        user.setResetPasswordToken(null);
+
+        userRepository.save(user);
+    }
 
 
 }

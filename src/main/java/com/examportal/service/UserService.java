@@ -1,5 +1,6 @@
 package com.examportal.service;
 
+import com.examportal.exception.UserNotFountException;
 import com.examportal.model.User;
 import com.examportal.model.UserRole;
 
@@ -26,5 +27,13 @@ public interface UserService {
 
 //    verify user
     public boolean verify(String verificationCode);
+
+//    update reset password
+    public void updateResetPasswordToken(String token, String email) throws UserNotFountException;
+
+    public User getResetPasswordToken(String resetToken);
+
+    public void updatePassword(User user, String newPassword);
+
 
 }

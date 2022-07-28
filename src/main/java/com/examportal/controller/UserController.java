@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,6 +42,8 @@ public class UserController {
     //    creating user with normal role
     @PostMapping("/")
     public User createUser(@Valid @RequestBody User user, HttpServletRequest request) throws Exception {
+
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:s");
 
         user.setProfile("default.png");
 
@@ -67,6 +71,8 @@ public class UserController {
 
         roleSet.add(userRole);
 
+        user.setCreateTime(LocalDateTime.now().format(formatter));
+
         return this.userService.createUser(user, roleSet);
     }
 
@@ -88,9 +94,9 @@ public class UserController {
         return this.userService.updateUser(user, userID);
     }
 
-//    verify user
+    //    verify user
     @GetMapping("/verify")
-    public String verifyAcount(@Param("code") String code){
+    public String verifyAcount(@Param("code") String code) {
         if (userService.verify(code)) {
             return "verify_success";
         } else {
