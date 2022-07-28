@@ -1,6 +1,6 @@
 import React from "react";
 
-const QuizInput = ({ id, onChnage, ...rest }) => {
+const QuizInput = ({ id, onChnage, label, ...rest }) => {
     return (
         <label htmlFor={id} className="flex items-center mb-2 text-gray-700">
             <input
@@ -10,7 +10,7 @@ const QuizInput = ({ id, onChnage, ...rest }) => {
                 id={id}
                 {...rest}
             />{" "}
-            Logical entity
+            {label}
         </label>
     );
 };

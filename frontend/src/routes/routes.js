@@ -13,7 +13,6 @@ export const PROFILE = "/profile";
 export const USER = "/user";
 export const RUNNING = "/running";
 export const FINISHED = "/finished";
-export const ALL_ATTEMPT = "attempt";
 
 //USER LABEL
 export const HOME_LABEL = "Home";
@@ -35,3 +34,4 @@ export const QUIZ_ENDPOINT = "/quiz/";
 export const CATEGORY_ENDPOINT = "/category/";
 export const SINGLE_QUIZ_ENDPOINT = "/quiz/category/";
 export const QUESTION_ENDPOINT = "/question";
+export const EVAL_QUIZ = `${QUESTION_ENDPOINT}/eval-quiz`;

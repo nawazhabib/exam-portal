@@ -7,7 +7,6 @@ import {
     ADD_CATEGORY,
     ADD_QUIZ,
     ADMIN,
-    ALL_ATTEMPT,
     ALL_QUIZZ,
     HOME,
     LOGIN,
@@ -23,7 +22,6 @@ import AddNewQuiz from "./screens/admin/add/AddNewQuiz";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import DisplayAllQuizes from "./screens/admin/all-quiz/DisplayQuizes";
 import EditQuiz from "./screens/admin/all-quiz/EditQuiz";
-import UserAttempt from "./screens/admin/user-attempt/UserAttempt";
 import ViewCategories from "./screens/admin/view-category/ViewCategories";
 import Home from "./screens/home/Home";
 import Login from "./screens/login/Login";
@@ -34,7 +32,6 @@ import AllQuiz from "./screens/user/all-quiz/AllQuiz";
 import FinishedQuiz from "./screens/user/all-quiz/FinishedQuiz";
 import OnGoingQuiz from "./screens/user/all-quiz/OnGoingQuiz";
 import SingleQuiz from "./screens/user/all-quiz/SingleQuiz";
-import AttemptQuiz from "./screens/user/AttemptQuiz";
 // import QuizCategories from "./screens/user/QuizCategories";
 import UserActivity from "./screens/user/UserActivity";
 import UserDashboard from "./screens/user/UserDashboard";
@@ -60,10 +57,6 @@ function App() {
                                 path="category/:catId"
                                 element={<SingleQuiz />}
                             />
-                            <Route
-                                path={ALL_ATTEMPT}
-                                element={<AttemptQuiz />}
-                            />
                         </Route>
                         <Route path={RUNNING} element={<OnGoingQuiz />} />
                         <Route
@@ -74,10 +67,7 @@ function App() {
                         {/* Role: Admin */}
                         <Route path={ADMIN} element={<AdminDashboard />}>
                             <Route index element={<AdminActivity />} />
-                            <Route
-                                path={`${ALL_ATTEMPT}/:id`}
-                                element={<UserAttempt />}
-                            />
+
                             <Route
                                 path={ADD_CATEGORY}
                                 element={<AddNewCategory />}

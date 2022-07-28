@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import congrats from "../../../assets/images/congrats1.png";
 import PrimaryBtn from "../../../components/button/PrimaryBtn";
 import Container from "../../../components/container/Container";
@@ -8,13 +8,15 @@ import { USER } from "../../../routes/routes";
 
 const FinishedQuiz = () => {
     let navigate = useNavigate();
+    const { state } = useLocation();
+    console.log(state, "state");
     return (
         <Container className="max-w-screen-lg flex justify-center bg-white my-4 ">
             <div className="shadow-xl border-2 border-gray-200  text-center p-2 rounded-lg">
                 <Title
-                    title="Java Basic Examp"
+                    title={state.title}
                     className="capitalize text-center "
-                    subtitle="Programming Category"
+                    subtitle={state.category}
                 />
                 <div className="flex justify-center">
                     <div>
@@ -25,16 +27,27 @@ const FinishedQuiz = () => {
                         />
 
                         <div className="flex items-center justify-center py-4">
-                            <div className="h-36 w-36 border-4  rounded-full border-primary text-green text-7xl flex items-center justify-center font-bold shadow-lg">
-                                {" "}
-                                48
+                            <div className="h-36 w-36 border-4  rounded-full border-primary text-green text-4xl flex items-center justify-center font-bold shadow-lg">
+                                {parseFloat(state.marksGot).toFixed(1)}
                             </div>
                         </div>
                         <div className="flex items-center flex-col ">
-                            <NumberShit name="Total Qustion" marks={6} />
-                            <NumberShit name="Attempeted" marks={6} />
-                            <NumberShit name="Obtained" marks={6} />
-                            <NumberShit name="Correct Answer" marks={6} />
+                            <NumberShit
+                                name="Total Qustion"
+                                marks={state.totalQuiz}
+                            />
+                            <NumberShit
+                                name="Attempeted"
+                                marks={state.attemptd}
+                            />
+                            <NumberShit
+                                name="Obtained"
+                                marks={state.marksGot}
+                            />
+                            <NumberShit
+                                name="Correct Answer"
+                                marks={state.coorectAnswer}
+                            />
                             <PrimaryBtn
                                 onClick={() => navigate(USER)}
                                 title="Home"

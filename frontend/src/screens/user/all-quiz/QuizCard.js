@@ -3,12 +3,15 @@ import Title from "../../../components/text/Title";
 import QuizInput from "./QuizInput";
 import QuizOptionsCard from "./QuizOptionsCard";
 
-const QuizCard = ({ id, content, option1, option2, option3, option4 }) => {
-    const handleChanage = (event) => {
-        const name = event.target.name;
-        console.log(name);
-        /* @TODO ==> update state value  Mon Jul 18  */
-    };
+const QuizCard = ({
+    id,
+    content,
+    option1,
+    option2,
+    option3,
+    option4,
+    onChange,
+}) => {
     return (
         <QuizOptionsCard>
             <Title subtitle={content} />
@@ -16,22 +19,30 @@ const QuizCard = ({ id, content, option1, option2, option3, option4 }) => {
                 <QuizInput
                     name={id}
                     id={`${id}option1`}
-                    onChnage={handleChanage}
+                    onChange={onChange}
+                    label={option1}
+                    value={option1}
                 />
                 <QuizInput
                     name={id}
                     id={`${id}option2`}
-                    onChnage={handleChanage}
+                    onChange={onChange}
+                    label={option2}
+                    value={option2}
                 />
                 <QuizInput
                     name={id}
                     id={`${id}option3`}
-                    onChnage={handleChanage}
+                    onChange={onChange}
+                    label={option3}
+                    value={option3}
                 />
                 <QuizInput
                     name={id}
                     id={`${id}option4`}
-                    onChnage={handleChanage}
+                    onChange={onChange}
+                    label={option4}
+                    value={option4}
                 />
             </div>
         </QuizOptionsCard>
