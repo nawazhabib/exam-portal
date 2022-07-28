@@ -22,6 +22,7 @@ import AddNewQuiz from "./screens/admin/add/AddNewQuiz";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import DisplayAllQuizes from "./screens/admin/all-quiz/DisplayQuizes";
 import EditQuiz from "./screens/admin/all-quiz/EditQuiz";
+import CategoryQuizes from "./screens/admin/view-category/CategoryQuizes";
 import ViewCategories from "./screens/admin/view-category/ViewCategories";
 import Home from "./screens/home/Home";
 import Login from "./screens/login/Login";
@@ -75,6 +76,10 @@ function App() {
                             <Route
                                 path={VIEW_CATEGORY}
                                 element={<ViewCategories />}
+                            />
+                            <Route
+                                path={`${VIEW_CATEGORY}/:catId`}
+                                element={<CategoryQuizes />}
                             />
                             <Route path={ADD_QUIZ} element={<AddNewQuiz />} />
                             <Route

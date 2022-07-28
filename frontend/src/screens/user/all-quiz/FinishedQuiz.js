@@ -9,7 +9,7 @@ import { USER } from "../../../routes/routes";
 const FinishedQuiz = () => {
     let navigate = useNavigate();
     const { state } = useLocation();
-    console.log(state, "state");
+
     return (
         <Container className="max-w-screen-lg flex justify-center bg-white my-4 ">
             <div className="shadow-xl border-2 border-gray-200  text-center p-2 rounded-lg">

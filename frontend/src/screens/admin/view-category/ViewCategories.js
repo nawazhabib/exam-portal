@@ -22,6 +22,7 @@ const ViewCategories = () => {
                 data.map((item) => (
                     <ViewCategoriesCard
                         key={item?.categoryID}
+                        catID={item?.categoryID}
                         title={item?.title}
                         description={item?.description}
                     />

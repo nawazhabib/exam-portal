@@ -9,7 +9,10 @@ import Cards from "../card/Cards";
 const AllQuiz = () => {
     let { title } = useParams();
 
-    const { data, error, loading, message } = useNetwork(QUIZ_ENDPOINT, true);
+    const { data, error, loading, message } = useNetwork(
+        `${QUIZ_ENDPOINT}activequizes`,
+        true
+    );
     return (
         <div>
             {/* title */}

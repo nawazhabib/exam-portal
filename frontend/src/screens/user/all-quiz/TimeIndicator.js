@@ -15,7 +15,7 @@ const TimerContent = ({ time, unit }) => {
     );
 };
 
-const TimeIndicator = ({ time = 0 }) => {
+const TimeIndicator = ({ time = 0, onComplete }) => {
     const renderer = ({ minutes, seconds }) => {
         return (
             <div
@@ -38,6 +38,7 @@ const TimeIndicator = ({ time = 0 }) => {
             <Countdown
                 date={Date.now() + time * 60 * 1000}
                 renderer={renderer}
+                onComplete={onComplete}
             />
         </div>
     );
