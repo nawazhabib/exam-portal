@@ -7,6 +7,7 @@ import com.examportal.exception.UserNotFountException;
 import com.examportal.model.User;
 import com.examportal.model.UserRole;
 
+import com.examportal.model.exam.Quiz;
 import com.examportal.repository.RoleRepository;
 import com.examportal.repository.UserRepository;
 import com.examportal.service.UserService;
@@ -23,6 +24,8 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -32,7 +35,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private JavaMailSender mailSender;
-
 
     @Autowired
     private UserRepository userRepository;
@@ -74,10 +76,17 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findByUsername(username);
     }
 
+
     //    delete user by user ID
     @Override
     public void deleteUser(Long userID) {
         this.userRepository.deleteById(userID);
+    }
+
+//    get all users
+    @Override
+    public List<User> getAllUser() {
+       return new ArrayList<>(this.userRepository.findAll());
     }
 
     //update user
@@ -86,7 +95,7 @@ public class UserServiceImpl implements UserService {
         User userUpdate = this.userRepository.findById(userId).get();
 
 //        userUpdate.setUsername(user.getUsername());
-//        userUpdate.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+        userUpdate.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
         userUpdate.setFirstName(user.getFirstName());
         userUpdate.setLastName(user.getLastName());
 //        userUpdate.setEmail(user.getEmail());

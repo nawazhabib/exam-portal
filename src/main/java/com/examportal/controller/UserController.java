@@ -82,6 +82,12 @@ public class UserController {
         return this.userService.getUser(username);
     }
 
+//    get all users
+    @GetMapping("/")
+    public ResponseEntity<?> getAllUser(){
+        return ResponseEntity.ok(this.userService.getAllUser());
+    }
+
     //    deleter user by user ID
     @DeleteMapping("/{userID}")
     public void deleteUser(@PathVariable("userID") Long userID) {
