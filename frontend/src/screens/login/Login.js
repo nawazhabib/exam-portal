@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PrimaryBtn from "../../components/button/PrimaryBtn";
 import Container from "../../components/container/Container";
 import Form from "../../components/form/Form";
@@ -44,7 +44,8 @@ const validate = (values) => {
 const Login = () => {
     const navigate = useNavigate();
     const { state, dispatch } = useAuthContext();
-
+    const location = useLocation();
+    const from = location?.state?.search?.pathname || USER;
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [error, setError] = useState(false);
@@ -83,7 +84,7 @@ const Login = () => {
                 setLoading(false);
                 setMessage(SUCCESS_MSG);
                 setError(false);
-                navigate(USER);
+                navigate(from, { state: true });
             } catch (err) {
                 console.log(err);
                 setMessage(typeof err === "string" ? err : ERR_MSG);

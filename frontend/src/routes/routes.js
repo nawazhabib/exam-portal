@@ -35,3 +35,8 @@ export const CATEGORY_ENDPOINT = "/category/";
 export const SINGLE_QUIZ_ENDPOINT = "/quiz/category/";
 export const QUESTION_ENDPOINT = "/question";
 export const EVAL_QUIZ = `${QUESTION_ENDPOINT}/eval-quiz`;
+
+// Authority
+export const USER_ADMIN_AUTHORITY = ["ADMIN", "NORMAL"];
+export const ADMIN_AUTHORITY = ["ADMIN"];
+// ADMIN  = [ADMIN, NORMAL], USER = [NORMAL]

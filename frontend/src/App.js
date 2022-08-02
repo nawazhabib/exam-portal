@@ -7,6 +7,7 @@ import {
     ADD_CATEGORY,
     ADD_QUIZ,
     ADMIN,
+    ADMIN_AUTHORITY,
     ALL_QUIZZ,
     HOME,
     LOGIN,
@@ -14,6 +15,7 @@ import {
     RUNNING,
     SIGNUP,
     USER,
+    USER_ADMIN_AUTHORITY,
     VIEW_CATEGORY,
 } from "./routes/routes";
 import AdminActivity from "./screens/admin/activity/AdminAcitivity";
@@ -48,9 +50,13 @@ function App() {
                     <Route path={LOGIN} element={<Login />} />
                     <Route path={SIGNUP} element={<SignUp />} />
 
-                    <Route element={<PrivateOutlet />}>
+                    {/* Role: User */}
+                    <Route
+                        element={
+                            <PrivateOutlet allowed={USER_ADMIN_AUTHORITY} />
+                        }
+                    >
                         <Route path={PROFILE} element={<Profile />} />
-                        {/* Role: User */}
                         <Route path={USER} element={<UserDashboard />}>
                             <Route index element={<UserActivity />} />
                             <Route path=":title" element={<AllQuiz />} />
@@ -64,7 +70,11 @@ function App() {
                             path={`${RUNNING}/:id`}
                             element={<FinishedQuiz />}
                         />
+                    </Route>
 
+                    <Route
+                        element={<PrivateOutlet allowed={ADMIN_AUTHORITY} />}
+                    >
                         {/* Role: Admin */}
                         <Route path={ADMIN} element={<AdminDashboard />}>
                             <Route index element={<AdminActivity />} />
