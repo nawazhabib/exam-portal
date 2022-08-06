@@ -9,6 +9,7 @@ import {
     ADMIN,
     ADMIN_AUTHORITY,
     ALL_QUIZZ,
+    ALL_USERS,
     HOME,
     LOGIN,
     PROFILE,
@@ -24,6 +25,7 @@ import AddNewQuiz from "./screens/admin/add/AddNewQuiz";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import DisplayAllQuizes from "./screens/admin/all-quiz/DisplayQuizes";
 import EditQuiz from "./screens/admin/all-quiz/EditQuiz";
+import ListAllUsers from "./screens/admin/users/ListAllUsers";
 import CategoryQuizes from "./screens/admin/view-category/CategoryQuizes";
 import ViewCategories from "./screens/admin/view-category/ViewCategories";
 import Home from "./screens/home/Home";
@@ -82,6 +84,10 @@ function App() {
                             <Route
                                 path={ADD_CATEGORY}
                                 element={<AddNewCategory />}
+                            />
+                            <Route
+                                path={ALL_USERS}
+                                element={<ListAllUsers />}
                             />
                             <Route
                                 path={VIEW_CATEGORY}

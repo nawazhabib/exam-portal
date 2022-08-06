@@ -26,6 +26,7 @@ export const ADD_CATEGORY = "add-category";
 export const VIEW_CATEGORY = "view-category";
 export const ALL_QUIZZ = "all-quizz";
 export const ADD_QUIZ = "add-quiz";
+export const ALL_USERS = "all-users";
 
 // API END POINT
 export const REGESTRATION_ENDPOINT = "/user/";

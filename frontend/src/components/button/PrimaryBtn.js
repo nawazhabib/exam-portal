@@ -3,6 +3,7 @@ const PrimaryBtn = ({
     className = " ",
     onClick,
     loading = false,
+    component: Component,
     bg = " bg-primary ",
     ...rest
 }) => {
@@ -23,10 +24,12 @@ const PrimaryBtn = ({
                 {loading ? (
                     <div className="flex gap-2 items-center justify-around">
                         <div className="w-5 h-5 border-4 border-blue-400 border-dotted rounded-full animate-spin"></div>
-                        Loading...
+                        {title && " Loading..."}
                     </div>
-                ) : (
+                ) : title ? (
                     title
+                ) : (
+                    <Component />
                 )}
             </button>
         </>
