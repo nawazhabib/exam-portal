@@ -20,12 +20,7 @@ const ViewCategories = () => {
                 <Message error={error}>{message}</Message>
             ) : data !== null && data.length > 0 ? (
                 data.map((item) => (
-                    <ViewCategoriesCard
-                        key={item?.categoryID}
-                        catID={item?.categoryID}
-                        title={item?.title}
-                        description={item?.description}
-                    />
+                    <ViewCategoriesCard key={item?.categoryID} quiz={item} />
                 ))
             ) : null}
         </div>

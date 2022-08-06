@@ -2,10 +2,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
+import Toast from "./components/Toast/Toast";
 import PrivateOutlet from "./routes/PrivateOutlet";
+import PublicRoutes from "./routes/PublicRoutes";
 import {
     ADD_CATEGORY,
-    ADD_QUIZ,
     ADMIN,
     ADMIN_AUTHORITY,
     ALL_QUIZZ,
@@ -21,7 +22,6 @@ import {
 } from "./routes/routes";
 import AdminActivity from "./screens/admin/activity/AdminAcitivity";
 import AddNewCategory from "./screens/admin/add/AddNewCategory";
-import AddNewQuiz from "./screens/admin/add/AddNewQuiz";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import DisplayAllQuizes from "./screens/admin/all-quiz/DisplayQuizes";
 import EditQuiz from "./screens/admin/all-quiz/EditQuiz";
@@ -49,8 +49,15 @@ function App() {
                 <Routes>
                     {/* Global Routes */}
                     <Route path={HOME} element={<Home />} />
-                    <Route path={LOGIN} element={<Login />} />
-                    <Route path={SIGNUP} element={<SignUp />} />
+
+                    <Route
+                        element={
+                            <PublicRoutes allowed={USER_ADMIN_AUTHORITY} />
+                        }
+                    >
+                        <Route path={LOGIN} element={<Login />} />
+                        <Route path={SIGNUP} element={<SignUp />} />
+                    </Route>
 
                     {/* Role: User */}
                     <Route
@@ -97,7 +104,7 @@ function App() {
                                 path={`${VIEW_CATEGORY}/:catId`}
                                 element={<CategoryQuizes />}
                             />
-                            <Route path={ADD_QUIZ} element={<AddNewQuiz />} />
+
                             <Route
                                 path={ALL_QUIZZ}
                                 element={<DisplayAllQuizes />}
@@ -110,6 +117,7 @@ function App() {
                     </Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
+                <Toast />
             </BrowserRouter>
             <Footer />
         </div>

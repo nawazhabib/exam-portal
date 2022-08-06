@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import PrimaryBtn from "../../../components/button/PrimaryBtn";
 import InputComponent from "../../../components/input/Input";
 import Title from "../../../components/text/Title";
+import { useAuthContext } from "../../../context/AuthContext";
+import { SHOW_TOAST } from "../../../context/constants";
 import request from "../../../request/request";
-import { QUESTION_ENDPOINT, REQUIRED } from "../../../routes/routes";
+import { ERR_MSG, QUESTION_ENDPOINT, REQUIRED } from "../../../routes/routes";
 
-const AddNewQuiz = ({ onUpdate, hideForm, setError, setMessage, quizID }) => {
+const AddNewQuiz = ({ onUpdate, hideForm, quizID }) => {
     const [loading, setLoading] = useState(false);
 
     const [quiz, setQuiz] = useState({
@@ -13,7 +15,6 @@ const AddNewQuiz = ({ onUpdate, hideForm, setError, setMessage, quizID }) => {
         option2: "",
         option3: "",
         option4: "",
-        answer: "",
         content: "",
     });
     const [quizError, setQuizError] = useState({
@@ -21,9 +22,10 @@ const AddNewQuiz = ({ onUpdate, hideForm, setError, setMessage, quizID }) => {
         option2: "",
         option3: "",
         option4: "",
-        answer: "",
         content: "",
     });
+    const { dispatch } = useAuthContext();
+    const [answer, setAnswer] = useState("option1");
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -36,7 +38,6 @@ const AddNewQuiz = ({ onUpdate, hideForm, setError, setMessage, quizID }) => {
             option2: "",
             option3: "",
             option4: "",
-            answer: "",
             content: "",
         };
 
@@ -51,26 +52,26 @@ const AddNewQuiz = ({ onUpdate, hideForm, setError, setMessage, quizID }) => {
         if (!quiz.option3) erros.option3 = REQUIRED;
         if (!quiz.option4) erros.option4 = REQUIRED;
         if (!quiz.content) erros.content = REQUIRED;
-        if (!quiz.answer) erros.answer = REQUIRED;
+
         return erros;
     };
+
     const hanldeAdd = async () => {
-        console.log(quiz, "quiz");
         const getFromData = validate();
         setQuizError(getFromData);
         if (Object.keys(getFromData).length === 0) {
-            setLoading(true);
-            setMessage("");
-            setError("");
+            // setLoading(true);
+
             let body = quiz;
             body.quiz = quizID;
+            body.answer = quiz[answer];
+
             try {
                 await request.authPost({
                     endpoint: `${QUESTION_ENDPOINT}/`,
                     body: body,
                 });
-                setMessage("Quiz added successfully");
-                setError("");
+
                 const tempQuiz = {
                     option1: "",
                     option2: "",
@@ -79,14 +80,21 @@ const AddNewQuiz = ({ onUpdate, hideForm, setError, setMessage, quizID }) => {
                     answer: "",
                     content: "",
                 };
-
+                dispatch({
+                    type: SHOW_TOAST,
+                    payload: { message: "Quiz added successfully!" },
+                });
                 setQuiz(tempQuiz);
                 setQuizError(tempQuiz);
                 onUpdate();
                 hideForm();
             } catch (error) {
-                setMessage(error);
-                setError(true);
+                dispatch({
+                    type: SHOW_TOAST,
+                    payload: {
+                        message: typeof error === "string" ? error : ERR_MSG,
+                    },
+                });
                 setLoading(false);
                 const tempQuiz = {
                     option1: "",
@@ -169,16 +177,19 @@ const AddNewQuiz = ({ onUpdate, hideForm, setError, setMessage, quizID }) => {
                             error={quizError.option4}
                         />
                     </div>
-                    <div className="md:col-span-2">
-                        <InputComponent
-                            label="Answer"
-                            placeholder="Quiz Answer"
-                            className="w-full  bg-green-50 "
-                            value={quiz.answer}
-                            onChange={handleChange}
+                    <div>
+                        <label htmlFor="">Choose Answer</label>
+                        <select
+                            className={`w-full bg-gray-200  border-2 p-2  rounded bg-opacity-50 focus:bg-opacity-100   focus:bg-gray-50   border-gray-300   focus:outline-none `}
                             name="answer"
-                            error={quizError.answer}
-                        />
+                            value={answer}
+                            onChange={(e) => setAnswer(e.target.value)}
+                        >
+                            <option value="option1">{quiz.option1}</option>
+                            <option value="option2">{quiz.option2}</option>
+                            <option value="option3">{quiz.option3}</option>
+                            <option value="option4">{quiz.option4}</option>
+                        </select>
                     </div>
                     <div className="md:col-span-2 flex justify-center">
                         <PrimaryBtn

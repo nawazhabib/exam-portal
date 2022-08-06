@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import AddNewQuiz from "../add/AddNewQuiz";
 
-const EditQuizButton = ({ onUpdate, quizID, setError, setMessage }) => {
+const EditQuizButton = ({ onUpdate, quizID }) => {
     const [isAdd, setIsAdd] = useState(false);
 
     return (
@@ -25,8 +25,6 @@ const EditQuizButton = ({ onUpdate, quizID, setError, setMessage }) => {
                 <AddNewQuiz
                     hideForm={() => setIsAdd(false)}
                     onUpdate={onUpdate}
-                    setError={setError}
-                    setMessage={setMessage}
                     quizID={quizID}
                 />
             )}

@@ -5,16 +5,17 @@ import PrimaryBtn from "../../../components/button/PrimaryBtn";
 import Spinner from "../../../components/spinner/Spinner";
 import Switch from "../../../components/switch/Switch";
 import Title from "../../../components/text/Title";
+import { useAuthContext } from "../../../context/AuthContext";
+import { SHOW_TOAST } from "../../../context/constants";
 import request from "../../../request/request";
-import { ADMIN, ALL_QUIZZ, QUIZ_ENDPOINT } from "../../../routes/routes";
+import {
+    ADMIN,
+    ALL_QUIZZ,
+    ERR_MSG,
+    QUIZ_ENDPOINT,
+} from "../../../routes/routes";
 import QuizOptionsCard from "../../user/all-quiz/QuizOptionsCard";
-// quizID={item.quizID}
-// maxMark={item.maxMark}
-// numberOfQuestions={item.numberOfQuestions}
-// title={item.title}
-// active={item.active}
-// description={item.description}
-// category={item.category.title}
+
 const AllQuizCard = ({
     quizID,
     maxMark,
@@ -23,10 +24,14 @@ const AllQuizCard = ({
     active,
     description,
     category,
+    quiz,
+    onDelete,
 }) => {
     const [activeQuiz, setActiveQuiz] = useState(active);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [delteLoading, setDeleteLoading] = useState(false);
+    const { state, dispatch } = useAuthContext();
     const handleUpdate = () => {
         const body = {
             quizID,
@@ -49,6 +54,25 @@ const AllQuizCard = ({
                 /* @TODO ==> Show error to somewhere like toast  Sun Jul 24  */
                 setLoading(false);
             });
+    };
+
+    const deleteQuiz = async (quizId) => {
+        setDeleteLoading(false);
+        try {
+            await request.authDelete({ endpoint: `${QUIZ_ENDPOINT}${quizId}` });
+            dispatch({
+                type: SHOW_TOAST,
+                payload: { message: "Quiz deleted successfully!" },
+            });
+            setDeleteLoading(false);
+            onDelete(quiz.filter((item) => item.quizID !== quizID));
+        } catch (error) {
+            setDeleteLoading(false);
+            dispatch({
+                type: SHOW_TOAST,
+                payload: { message: ERR_MSG, error: true },
+            });
+        }
     };
     return (
         <QuizOptionsCard className="mb-3">
@@ -98,6 +122,14 @@ const AllQuizCard = ({
                 <QuizTag
                     color="primary"
                     title={`Number of Questions: ${numberOfQuestions}`}
+                />
+
+                <PrimaryBtn
+                    title="Delete"
+                    bg="bg-error"
+                    loading={delteLoading}
+                    className="py-2 px-3 mr-2 mb-2"
+                    onClick={() => deleteQuiz(quizID)}
                 />
             </div>
         </QuizOptionsCard>

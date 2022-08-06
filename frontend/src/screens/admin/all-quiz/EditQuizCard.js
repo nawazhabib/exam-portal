@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import PrimaryBtn from "../../../components/button/PrimaryBtn";
+import { useAuthContext } from "../../../context/AuthContext";
+import { SHOW_TOAST } from "../../../context/constants";
 import request from "../../../request/request";
-import { QUESTION_ENDPOINT } from "../../../routes/routes";
+import { ERR_MSG, QUESTION_ENDPOINT } from "../../../routes/routes";
 
 const EditQuizCard = ({ data, onUpdate }) => {
     const [loading, setLoading] = useState(false);
+    const { dispatch } = useAuthContext();
     const handleDelete = async (e) => {
         try {
             setLoading(true);
@@ -12,10 +15,19 @@ const EditQuizCard = ({ data, onUpdate }) => {
                 endpoint: `${QUESTION_ENDPOINT}/${data.questionID}`,
             });
             setLoading(false);
+            dispatch({
+                type: SHOW_TOAST,
+                payload: { message: "Deleted successfully!" },
+            });
             onUpdate();
         } catch (error) {
             setLoading(false);
-            console.log(error);
+            dispatch({
+                type: SHOW_TOAST,
+                payload: {
+                    message: typeof error === "string" ? error : ERR_MSG,
+                },
+            });
             /* @TODO ==> Show Error in someplace  Sun Jul 24  */
         }
     };

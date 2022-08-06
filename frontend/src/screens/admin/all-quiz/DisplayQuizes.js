@@ -9,6 +9,7 @@ import AllQuizCard from "./AllQuizCard";
 const DisplayAllQuizes = () => {
     const [queryString, setQueryString] = useState("");
     const { error, loading, data, message } = useNetwork(QUIZ_ENDPOINT);
+
     const [quiz, setQuiz] = useState(data ? data : []);
 
     useEffect(() => {
@@ -49,6 +50,8 @@ const DisplayAllQuizes = () => {
                             active={item.active}
                             description={item.description}
                             category={item.category}
+                            quiz={quiz}
+                            onDelete={setQuiz}
                         />
                     ))
                 ) : (

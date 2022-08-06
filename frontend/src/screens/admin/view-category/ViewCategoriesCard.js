@@ -2,10 +2,13 @@ import React from "react";
 import { FaFolder } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { ADMIN, VIEW_CATEGORY } from "../../../routes/routes";
-const ViewCategoriesCard = ({ title, description, catID }) => {
+const ViewCategoriesCard = (props) => {
     const navigate = useNavigate();
     const hanldeClick = () => {
-        navigate(`${ADMIN}/${VIEW_CATEGORY}/${catID}`);
+        navigate(`${ADMIN}/${VIEW_CATEGORY}/${props.quiz?.categoryID}`, {
+            state: { ...props.quiz },
+            replace: true,
+        });
     };
     return (
         <div
@@ -17,8 +20,10 @@ const ViewCategoriesCard = ({ title, description, catID }) => {
                 <FaFolder />
             </div>
             <div>
-                <h2 className="text-lg text-gray-800">{title}</h2>
-                <p className="text-base text-gray-500">{description}</p>
+                <h2 className="text-lg text-gray-800">{props.quiz?.title}</h2>
+                <p className="text-base text-gray-500">
+                    {props.quiz?.description}
+                </p>
             </div>
         </div>
     );

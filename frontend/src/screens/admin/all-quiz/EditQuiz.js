@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Message from "../../../components/message/Message";
 import Spinner from "../../../components/spinner/Spinner";
-import Toast from "../../../components/Toast/Toast";
 import request from "../../../request/request";
 import { ERR_MSG, QUIZ_ENDPOINT } from "../../../routes/routes";
 import EditQuizButton from "./EditQuizButton";
@@ -15,7 +14,7 @@ const EditQuiz = () => {
     const [error, setError] = useState(false);
     const [message, setMessage] = useState("");
     const location = useLocation();
-    console.log("LOCATION::::", location);
+
     // const { loading, error, data, message } = useNetwork(
     //     `/question${QUIZ_ENDPOINT}${id}`
     // );
@@ -24,10 +23,10 @@ const EditQuiz = () => {
         setLoading(true);
         setMessage("");
         setError(false);
-        console.log("Loading Question:....");
+
         try {
             const res = await request.authGet({
-                endpoint: `/question${QUIZ_ENDPOINT}${id}`,
+                endpoint: `/question${QUIZ_ENDPOINT}all/${id}`,
             });
             setLoading(false);
             setData(res);
@@ -44,9 +43,6 @@ const EditQuiz = () => {
         loadQuizQuestion();
     }, []);
 
-    console.log(data, "DATA ");
-    const [errorAddQuiz, setErrorAddQuiz] = useState("");
-    const [messageAddQuiz, setMessageAddQuiz] = useState("");
     return (
         <div>
             <h1 className=" texl-lg sm:text-2xl mb-2 bg-white p-4 shadow-md rounded-md border-b-2 border-primary">
@@ -55,8 +51,6 @@ const EditQuiz = () => {
             <EditQuizButton
                 onUpdate={loadQuizQuestion}
                 quizID={{ quizID: Number(id) }}
-                setError={setErrorAddQuiz}
-                setMessage={setMessageAddQuiz}
             />
             {loading ? (
                 <Spinner />
@@ -72,9 +66,6 @@ const EditQuiz = () => {
                 ))
             ) : (
                 <Message error>No Question Found Found!</Message>
-            )}
-            {messageAddQuiz && (
-                <Toast message={messageAddQuiz} error={errorAddQuiz} />
             )}
         </div>
     );
