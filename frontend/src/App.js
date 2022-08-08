@@ -18,6 +18,7 @@ import {
     SIGNUP,
     USER,
     USER_ADMIN_AUTHORITY,
+    VERIFICATION_EMAIL,
     VIEW_CATEGORY,
 } from "./routes/routes";
 import AdminActivity from "./screens/admin/activity/AdminAcitivity";
@@ -40,6 +41,7 @@ import SingleQuiz from "./screens/user/all-quiz/SingleQuiz";
 // import QuizCategories from "./screens/user/QuizCategories";
 import UserActivity from "./screens/user/UserActivity";
 import UserDashboard from "./screens/user/UserDashboard";
+import UserVerification from "./screens/verfiy/UserVerification";
 
 function App() {
     return (
@@ -115,10 +117,14 @@ function App() {
                             />
                         </Route>
                     </Route>
+                    <Route
+                        path={VERIFICATION_EMAIL}
+                        element={<UserVerification />}
+                    />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
-                <Toast />
             </BrowserRouter>
+            <Toast />
             <Footer />
         </div>
     );

@@ -27,6 +27,7 @@ export const VIEW_CATEGORY = "view-category";
 export const ALL_QUIZZ = "all-quizz";
 export const ADD_QUIZ = "add-quiz";
 export const ALL_USERS = "all-users";
+export const VERIFICATION_EMAIL = "/user/verify";
 
 // API END POINT
 export const REGESTRATION_ENDPOINT = "/user/";
@@ -36,6 +37,7 @@ export const CATEGORY_ENDPOINT = "/category/";
 export const SINGLE_QUIZ_ENDPOINT = "/quiz/category/";
 export const QUESTION_ENDPOINT = "/question";
 export const EVAL_QUIZ = `${QUESTION_ENDPOINT}/eval-quiz`;
+export const VERIFY_EMAIL = "/user/verify";
 
 // Authority
 export const USER_ADMIN_AUTHORITY = ["ADMIN", "NORMAL"];

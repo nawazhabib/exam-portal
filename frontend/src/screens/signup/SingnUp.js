@@ -1,9 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import PrimaryBtn from "../../components/button/PrimaryBtn";
 import Container from "../../components/container/Container";
 import Form from "../../components/form/Form";
-import InputComponent from "../../components/input/Input";
 import Message from "../../components/message/Message";
 import { signupData } from "../../constants/constants";
 import {
@@ -19,23 +16,15 @@ import {
     REGESTRATION_ENDPOINT,
     SIGNUP_LABEL,
 } from "../../routes/routes";
+import PersonalInfo from "./PersonalInfo";
+import SignupInfo from "./SignupInfo";
 
-const validate = (values) => {
+const validatePersonal = (values) => {
     const errors = {};
-    if (!values.email) {
-        errors.email = "Email is required!";
-    } else if (!emailRegEx.test(values.email.toLowerCase())) {
-        errors.email = "Enter a valid email!";
-    }
     if (!values.phone) {
         errors.phone = "Phone No. is required!";
     } else if (!phoneRegEx.test(values.phone)) {
         errors.phone = "Enter a valid phone number!";
-    }
-    if (!values.username) {
-        errors.username = "Username name is required!";
-    } else if (values.username.length < 4 || values.username.length > 16) {
-        errors.username = "Username must be in 4-16 characters!";
     }
     if (!values.firstName) {
         errors.firstName = "First name is required!";
@@ -47,6 +36,23 @@ const validate = (values) => {
     } else if (values.lastName.length < 4 || values.lastName.length > 16) {
         errors.lastName = "Last name must be 4-16 characters!";
     }
+    return errors;
+};
+
+const validate = (values) => {
+    const errors = {};
+    if (!values.email) {
+        errors.email = "Email is required!";
+    } else if (!emailRegEx.test(values.email.toLowerCase())) {
+        errors.email = "Enter a valid email!";
+    }
+
+    if (!values.username) {
+        errors.username = "Username name is required!";
+    } else if (values.username.length < 4 || values.username.length > 16) {
+        errors.username = "Username must be in 4-16 characters!";
+    }
+
     if (!values.password) {
         errors.password = "Password is required!";
     } else if (!passRegEX.test(values.password)) {
@@ -65,11 +71,11 @@ const validate = (values) => {
 };
 
 const SignUp = () => {
-    const navigate = useNavigate();
-    const { img, title, desc, link, btn } = signupData;
+    const { img, title, desc, btn } = signupData;
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+    const [isVerify, setIsVerify] = useState("");
 
     const [formData, setFormData] = useState({
         username: "",
@@ -103,6 +109,7 @@ const SignUp = () => {
             setLoading(true);
             setMessage("");
             setError(false);
+            setIsVerify(false);
             request
                 .post({ endpoint: REGESTRATION_ENDPOINT, body: formData })
                 .then((data) => {
@@ -119,13 +126,27 @@ const SignUp = () => {
                         phone: "",
                     };
                     setFormData(temp);
-                    navigate(LOGIN);
+                    setIsVerify(true);
                 })
                 .catch((err) => {
                     setError(true);
                     setLoading(false);
                     setMessage(typeof err === "string" ? err : ERR_MSG);
+                    setIsVerify(false);
                 });
+        }
+    };
+    const [step, setStep] = useState(1);
+    const handleValidatePersonalInfo = () => {
+        const values = {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            phone: formData.phone,
+        };
+        const getValidFormData = validatePersonal(values);
+        setFormError(getValidFormData);
+        if (Object.keys(getValidFormData).length === 0) {
+            setStep(step + 1);
         }
     };
 
@@ -150,75 +171,33 @@ const SignUp = () => {
                                     label={LOGIN_LABEL}
                                     head={SIGNUP_LABEL}
                                 >
-                                    <InputComponent
-                                        placeholder="Username"
-                                        label="Username"
-                                        onChange={handleChangeField}
-                                        required
-                                        name="username"
-                                        value={formData.username}
-                                        error={formError.username}
-                                    />
+                                    {step === 1 ? (
+                                        <PersonalInfo
+                                            formData={formData}
+                                            formError={formError}
+                                            onChange={handleChangeField}
+                                            onClick={handleValidatePersonalInfo}
+                                        />
+                                    ) : (
+                                        <SignupInfo
+                                            formData={formData}
+                                            formError={formError}
+                                            onChange={handleChangeField}
+                                            onBack={() => setStep(step - 1)}
+                                            onClick={handleSignin}
+                                            loading={loading}
+                                        />
+                                    )}
 
-                                    <InputComponent
-                                        placeholder="First Name"
-                                        label="Frist Name"
-                                        value={formData.firstName}
-                                        error={formError.firstName}
-                                        onChange={handleChangeField}
-                                        name="firstName"
-                                    />
-                                    <InputComponent
-                                        placeholder="Last Name"
-                                        label="Last Name"
-                                        value={formData.lastName}
-                                        error={formError.lastName}
-                                        onChange={handleChangeField}
-                                        name="lastName"
-                                    />
-                                    <InputComponent
-                                        placeholder="Enter email"
-                                        label="Email"
-                                        value={formData.email}
-                                        error={formError.email}
-                                        onChange={handleChangeField}
-                                        name="email"
-                                    />
-                                    <InputComponent
-                                        placeholder="Phone no."
-                                        label="Enter phon no"
-                                        value={formData.phone}
-                                        error={formError.phone}
-                                        onChange={handleChangeField}
-                                        name="phone"
-                                    />
-
-                                    <InputComponent
-                                        placeholder="Password"
-                                        label="Password"
-                                        value={formData.password}
-                                        error={formError.password}
-                                        onChange={handleChangeField}
-                                        name="password"
-                                    />
-                                    <InputComponent
-                                        placeholder="Confirm Password"
-                                        label="Confirm Password"
-                                        value={formData.confirmPassword}
-                                        error={formError.confirmPassword}
-                                        onChange={handleChangeField}
-                                        name="confirmPassword"
-                                    />
-
-                                    <PrimaryBtn
-                                        onClick={handleSignin}
-                                        title={btn}
-                                        className="  w-full"
-                                        loading={loading}
-                                    />
-                                    {message && (
+                                    {error && (
                                         <Message error={error}>
                                             {message}
+                                        </Message>
+                                    )}
+                                    {isVerify && (
+                                        <Message>
+                                            A code has been sent to your email.
+                                            Please verify and login
                                         </Message>
                                     )}
                                 </Form>

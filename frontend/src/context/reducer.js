@@ -6,6 +6,8 @@ export const reducer = (state, action) => {
             sessionStorage.setItem("user", JSON.stringify(action.payload));
             return { ...state, user: action.payload };
         case REMOVE_USER:
+            sessionStorage.removeItem("exampPortalUser");
+            sessionStorage.removeItem("user");
             return { ...state, user: null };
         case SHOW_TOAST:
             return { ...state, toast: action.payload };

@@ -16,6 +16,7 @@ const request = (() => {
                     headers: { ...defaultHeader, ...headers },
                     body: JSON.stringify(body),
                 });
+
                 const data = await response.json();
                 if (data?.error) reject(data.error);
                 resolve(data);
