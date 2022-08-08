@@ -14,7 +14,6 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/quiz")
 public class QuizController {
-
     @Autowired
     private QuizService quizService;
 

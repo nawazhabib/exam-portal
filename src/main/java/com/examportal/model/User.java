@@ -43,10 +43,9 @@ public class User implements UserDetails {
     @Size(min = 4, max = 10, message = "Last name must be 4-8 charachtes")
     private String lastName;
 
-
     @Email
+    @NotEmpty
     private String email;
-
 
     @NotEmpty
     @Pattern(regexp = "(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\\d{8})$")
@@ -54,7 +53,15 @@ public class User implements UserDetails {
     private String phone;
 
     private String profile;
-    private boolean enabled = true;
+
+    private boolean enabled;
+
+    private String verificationCode;
+
+    private String resetPasswordToken;
+
+    private String createTime;
+
 
     //   generate one user have many roles
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
