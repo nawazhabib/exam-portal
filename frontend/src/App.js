@@ -11,13 +11,16 @@ import {
     ADMIN_AUTHORITY,
     ALL_QUIZZ,
     ALL_USERS,
+    FORGET_PASSWORD,
     HOME,
     LOGIN,
     PROFILE,
+    RESET_PASSWORD,
     RUNNING,
     SIGNUP,
     USER,
     USER_ADMIN_AUTHORITY,
+    VERIFICATION_EMAIL,
     VIEW_CATEGORY,
 } from "./routes/routes";
 import AdminActivity from "./screens/admin/activity/AdminAcitivity";
@@ -29,7 +32,9 @@ import ListAllUsers from "./screens/admin/users/ListAllUsers";
 import CategoryQuizes from "./screens/admin/view-category/CategoryQuizes";
 import ViewCategories from "./screens/admin/view-category/ViewCategories";
 import Home from "./screens/home/Home";
+import ForgetPassword from "./screens/login/ForgetPassword";
 import Login from "./screens/login/Login";
+import ResetPassword from "./screens/login/ResetPassword";
 import NotFound from "./screens/not-found/NotFound";
 import Profile from "./screens/profile/Profile";
 import SignUp from "./screens/signup/SingnUp";
@@ -40,6 +45,7 @@ import SingleQuiz from "./screens/user/all-quiz/SingleQuiz";
 // import QuizCategories from "./screens/user/QuizCategories";
 import UserActivity from "./screens/user/UserActivity";
 import UserDashboard from "./screens/user/UserDashboard";
+import UserVerification from "./screens/verfiy/UserVerification";
 
 function App() {
     return (
@@ -115,10 +121,20 @@ function App() {
                             />
                         </Route>
                     </Route>
+                    <Route
+                        path={VERIFICATION_EMAIL}
+                        element={<UserVerification />}
+                    />
+                    <Route
+                        path={FORGET_PASSWORD}
+                        element={<ForgetPassword />}
+                    />
+
+                    <Route path={RESET_PASSWORD} element={<ResetPassword />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
-                <Toast />
             </BrowserRouter>
+            <Toast />
             <Footer />
         </div>
     );
