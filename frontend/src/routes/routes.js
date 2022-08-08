@@ -8,6 +8,8 @@ export const HOME = "/";
 export const LOGIN = "/login";
 export const SIGNUP = "/signup";
 export const PROFILE = "/profile";
+export const FORGET_PASSWORD = "/forget";
+export const RESET_PASSWORD = "/reset_password";
 
 // path User
 export const USER = "/user";
@@ -38,6 +40,7 @@ export const SINGLE_QUIZ_ENDPOINT = "/quiz/category/";
 export const QUESTION_ENDPOINT = "/question";
 export const EVAL_QUIZ = `${QUESTION_ENDPOINT}/eval-quiz`;
 export const VERIFY_EMAIL = "/user/verify";
+export const FORGET_PASSWORD_ENDPOINT = "/forgot-password";
 
 // Authority
 export const USER_ADMIN_AUTHORITY = ["ADMIN", "NORMAL"];

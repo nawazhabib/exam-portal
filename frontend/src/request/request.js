@@ -7,17 +7,22 @@ export const defaultHeader = {
 };
 
 const request = (() => {
-    const getPost = ({ endpoint, headers = {}, body }) => {
+    const getPost = ({ endpoint, headers = {}, isFormData = false, body }) => {
         return new Promise(async (resolve, reject) => {
             try {
                 console.log("Sending Request", `${BASE_URL}${endpoint}`);
                 const response = await fetch(`${BASE_URL}${endpoint}`, {
                     method: "POST",
-                    headers: { ...defaultHeader, ...headers },
-                    body: JSON.stringify(body),
+                    headers: isFormData
+                        ? headers
+                        : { ...defaultHeader, ...headers },
+                    body: isFormData ? body : JSON.stringify(body),
                 });
+                console.log(response, "response");
+                console.log(body, "body");
 
                 const data = await response.json();
+                console.log("data, ", data);
                 if (data?.error) reject(data.error);
                 resolve(data);
             } catch (error) {

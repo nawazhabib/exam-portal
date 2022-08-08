@@ -57,12 +57,12 @@ const UserVerification = () => {
         };
 
         checkVerification();
-    }, [code]);
+    }, [code, dispatch, navigate]);
 
     return (
         <Container className="grid place-items-center">
             <div className="grid grid-cols-1 lg:grid-cols-2  md:gap-4  place-items-start lg:place-items-center">
-                <div className="mb-9 lg:mb-0">
+                <div className="hidden lg:block  mb-9 lg:mb-0">
                     <img src={SignupImage} alt="signup_success" />
                 </div>
 
