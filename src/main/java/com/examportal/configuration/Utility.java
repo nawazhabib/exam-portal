@@ -9,6 +9,5 @@ public class Utility {
         String tmp = siteURL.replace(request.getServletPath(), "");
 
         return tmp.replace("8080", "3000");
-//        return tmp;
     }
 }

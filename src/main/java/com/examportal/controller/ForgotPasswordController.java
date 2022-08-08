@@ -51,7 +51,7 @@ public class ForgotPasswordController {
             e.printStackTrace();
         }
 
-        return "post mapping of forgot-password";
+        return "Please, check you email";
     }
 
     //    sending email with reset password token
@@ -86,7 +86,7 @@ public class ForgotPasswordController {
         if (user == null) {
             return "Invalid Token";
         }
-        return "reset_password_form";
+        return "Do this process again";
     }
 
 
@@ -96,6 +96,7 @@ public class ForgotPasswordController {
         String password = request.getParameter("password");
 
         User user = userService.getResetPasswordToken(token);
+
 
         if (user == null) {
             return "Invalid Token";
