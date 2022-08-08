@@ -2,13 +2,78 @@ import React, { useState } from "react";
 import { BsFillSunriseFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import PrimaryBtn from "../../../components/button/PrimaryBtn";
+import Spinner from "../../../components/spinner/Spinner";
 import Switch from "../../../components/switch/Switch";
 import Title from "../../../components/text/Title";
+import { useAuthContext } from "../../../context/AuthContext";
+import { SHOW_TOAST } from "../../../context/constants";
+import request from "../../../request/request";
+import {
+    ADMIN,
+    ALL_QUIZZ,
+    ERR_MSG,
+    QUIZ_ENDPOINT,
+} from "../../../routes/routes";
 import QuizOptionsCard from "../../user/all-quiz/QuizOptionsCard";
 
-const AllQuizCard = ({ id = "1" }) => {
-    const [activeQuiz, setActiveQuiz] = useState(false);
+const AllQuizCard = ({
+    quizID,
+    maxMark,
+    numberOfQuestions,
+    title,
+    active,
+    description,
+    category,
+    quiz,
+    onDelete,
+}) => {
+    const [activeQuiz, setActiveQuiz] = useState(active);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [delteLoading, setDeleteLoading] = useState(false);
+    const { state, dispatch } = useAuthContext();
+    const handleUpdate = () => {
+        const body = {
+            quizID,
+            maxMark,
+            numberOfQuestions,
+            title,
+            active: !activeQuiz,
+            description,
+            category,
+        };
+        setLoading(true);
+        request
+            .authPost({ endpoint: QUIZ_ENDPOINT, body })
+            .then((res) => {
+                setLoading(false);
+                setActiveQuiz((prev) => !prev);
+            })
+            .catch((error) => {
+                console.log(error);
+                /* @TODO ==> Show error to somewhere like toast  Sun Jul 24  */
+                setLoading(false);
+            });
+    };
+
+    const deleteQuiz = async (quizId) => {
+        setDeleteLoading(false);
+        try {
+            await request.authDelete({ endpoint: `${QUIZ_ENDPOINT}${quizId}` });
+            dispatch({
+                type: SHOW_TOAST,
+                payload: { message: "Quiz deleted successfully!" },
+            });
+            setDeleteLoading(false);
+            onDelete(quiz.filter((item) => item.quizID !== quizID));
+        } catch (error) {
+            setDeleteLoading(false);
+            dispatch({
+                type: SHOW_TOAST,
+                payload: { message: ERR_MSG, error: true },
+            });
+        }
+    };
     return (
         <QuizOptionsCard className="mb-3">
             {/* title */}
@@ -20,37 +85,52 @@ const AllQuizCard = ({ id = "1" }) => {
 
                     <Title
                         className="capitalize mb-0 text-lg md:text-xl lg:text-xl "
-                        title="Quiz Title"
-                        subtitle="General Knowledge"
+                        title={title}
+                        subtitle={category.title}
                     />
                 </div>
 
                 <div>
-                    <Switch
-                        label="Publish"
-                        value={activeQuiz}
-                        checked={activeQuiz}
-                        onChange={() => setActiveQuiz((prev) => !prev)}
-                        id
-                    />
+                    {loading ? (
+                        <Spinner size={6} />
+                    ) : (
+                        <Switch
+                            label={activeQuiz ? "Published" : "Publish"}
+                            value={activeQuiz}
+                            checked={activeQuiz}
+                            onChange={handleUpdate}
+                            id={quizID}
+                        />
+                    )}
                 </div>
             </div>
-            <p className="text-gray-700 mb-4 text-gr">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
-                iure hic nulla quod ad error maxime, veritatis laborum incidunt
-                tempora!
-            </p>
+            <p className="text-gray-700 mb-4 text-gr">{description}</p>
 
             <div>
                 <PrimaryBtn
                     title="View"
                     bg="bg-gray-500"
                     className="py-2 mr-2 mb-2"
-                    onClick={() => navigate(id)}
+                    onClick={() =>
+                        navigate(`${ADMIN}/${ALL_QUIZZ}/${quizID}`, {
+                            state: { title: category.title },
+                        })
+                    }
                     /* @TODO ==> passs the id here  Wed Jul 20  */
                 />
-                <QuizTag color="green" title="Max Marks 50" />
-                <QuizTag color="primary" title="Number of Question 10" />
+                <QuizTag color="green" title={`Max Marks: ${maxMark}`} />
+                <QuizTag
+                    color="primary"
+                    title={`Number of Questions: ${numberOfQuestions}`}
+                />
+
+                <PrimaryBtn
+                    title="Delete"
+                    bg="bg-error"
+                    loading={delteLoading}
+                    className="py-2 px-3 mr-2 mb-2"
+                    onClick={() => deleteQuiz(quizID)}
+                />
             </div>
         </QuizOptionsCard>
     );

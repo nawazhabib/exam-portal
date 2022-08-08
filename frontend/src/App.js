@@ -2,36 +2,41 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
+import Toast from "./components/Toast/Toast";
 import PrivateOutlet from "./routes/PrivateOutlet";
+import PublicRoutes from "./routes/PublicRoutes";
 import {
     ADD_CATEGORY,
-    ADD_QUIZ,
     ADMIN,
-    ALL_ATTEMPT,
+    ADMIN_AUTHORITY,
     ALL_QUIZZ,
+    ALL_USERS,
     HOME,
     LOGIN,
+    PROFILE,
     RUNNING,
     SIGNUP,
     USER,
+    USER_ADMIN_AUTHORITY,
     VIEW_CATEGORY,
 } from "./routes/routes";
 import AdminActivity from "./screens/admin/activity/AdminAcitivity";
 import AddNewCategory from "./screens/admin/add/AddNewCategory";
-import AddNewQuiz from "./screens/admin/add/AddNewQuiz";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import DisplayAllQuizes from "./screens/admin/all-quiz/DisplayQuizes";
 import EditQuiz from "./screens/admin/all-quiz/EditQuiz";
-import UserAttempt from "./screens/admin/user-attempt/UserAttempt";
+import ListAllUsers from "./screens/admin/users/ListAllUsers";
+import CategoryQuizes from "./screens/admin/view-category/CategoryQuizes";
 import ViewCategories from "./screens/admin/view-category/ViewCategories";
 import Home from "./screens/home/Home";
 import Login from "./screens/login/Login";
 import NotFound from "./screens/not-found/NotFound";
+import Profile from "./screens/profile/Profile";
 import SignUp from "./screens/signup/SingnUp";
 import AllQuiz from "./screens/user/all-quiz/AllQuiz";
 import FinishedQuiz from "./screens/user/all-quiz/FinishedQuiz";
 import OnGoingQuiz from "./screens/user/all-quiz/OnGoingQuiz";
-import AttemptQuiz from "./screens/user/AttemptQuiz";
+import SingleQuiz from "./screens/user/all-quiz/SingleQuiz";
 // import QuizCategories from "./screens/user/QuizCategories";
 import UserActivity from "./screens/user/UserActivity";
 import UserDashboard from "./screens/user/UserDashboard";
@@ -44,17 +49,29 @@ function App() {
                 <Routes>
                     {/* Global Routes */}
                     <Route path={HOME} element={<Home />} />
-                    <Route path={LOGIN} element={<Login />} />
-                    <Route path={SIGNUP} element={<SignUp />} />
 
-                    <Route element={<PrivateOutlet />}>
-                        {/* Role: User */}
+                    <Route
+                        element={
+                            <PublicRoutes allowed={USER_ADMIN_AUTHORITY} />
+                        }
+                    >
+                        <Route path={LOGIN} element={<Login />} />
+                        <Route path={SIGNUP} element={<SignUp />} />
+                    </Route>
+
+                    {/* Role: User */}
+                    <Route
+                        element={
+                            <PrivateOutlet allowed={USER_ADMIN_AUTHORITY} />
+                        }
+                    >
+                        <Route path={PROFILE} element={<Profile />} />
                         <Route path={USER} element={<UserDashboard />}>
                             <Route index element={<UserActivity />} />
                             <Route path=":title" element={<AllQuiz />} />
                             <Route
-                                path={ALL_ATTEMPT}
-                                element={<AttemptQuiz />}
+                                path="category/:catId"
+                                element={<SingleQuiz />}
                             />
                         </Route>
                         <Route path={RUNNING} element={<OnGoingQuiz />} />
@@ -62,23 +79,32 @@ function App() {
                             path={`${RUNNING}/:id`}
                             element={<FinishedQuiz />}
                         />
+                    </Route>
 
+                    <Route
+                        element={<PrivateOutlet allowed={ADMIN_AUTHORITY} />}
+                    >
                         {/* Role: Admin */}
                         <Route path={ADMIN} element={<AdminDashboard />}>
                             <Route index element={<AdminActivity />} />
-                            <Route
-                                path={`${ALL_ATTEMPT}/:id`}
-                                element={<UserAttempt />}
-                            />
+
                             <Route
                                 path={ADD_CATEGORY}
                                 element={<AddNewCategory />}
                             />
                             <Route
+                                path={ALL_USERS}
+                                element={<ListAllUsers />}
+                            />
+                            <Route
                                 path={VIEW_CATEGORY}
                                 element={<ViewCategories />}
                             />
-                            <Route path={ADD_QUIZ} element={<AddNewQuiz />} />
+                            <Route
+                                path={`${VIEW_CATEGORY}/:catId`}
+                                element={<CategoryQuizes />}
+                            />
+
                             <Route
                                 path={ALL_QUIZZ}
                                 element={<DisplayAllQuizes />}
@@ -91,6 +117,7 @@ function App() {
                     </Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
+                <Toast />
             </BrowserRouter>
             <Footer />
         </div>

@@ -1,23 +1,23 @@
+import React from "react";
 import { useParams } from "react-router-dom";
 import Message from "../../../components/message/Message";
 import Spinner from "../../../components/spinner/Spinner";
 import Title from "../../../components/text/Title";
 import useNetwork from "../../../hooks/useNetwork";
-import { QUIZ_ENDPOINT } from "../../../routes/routes";
+import { CATEGORY_ENDPOINT } from "../../../routes/routes";
 import Cards from "../card/Cards";
-
-const AllQuiz = () => {
-    let { title } = useParams();
+const SingleQuiz = () => {
+    let { catId } = useParams();
 
     const { data, error, loading, message } = useNetwork(
-        `${QUIZ_ENDPOINT}activequizes`,
+        `/quiz${CATEGORY_ENDPOINT}active/${catId}`,
         true
     );
     return (
         <div>
             {/* title */}
             <Title
-                title={title}
+                title={data !== null && data[0]?.category?.title}
                 className="border-b-2 border-pruple shadow-md py-2  border-primary"
             >
                 Category:{" "}
@@ -51,4 +51,4 @@ const AllQuiz = () => {
     );
 };
 
-export default AllQuiz;
+export default SingleQuiz;

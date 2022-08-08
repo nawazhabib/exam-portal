@@ -2,13 +2,16 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Fragment } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
+import auth from "../../request/auth";
 import {
     ADMIN,
     HOME,
     HOME_LABEL,
     LOGIN,
     LOGIN_LABEL,
+    PROFILE,
     SIGNUP,
     SIGNUP_LABEL,
     USER,
@@ -17,8 +20,12 @@ const navigation = [
     { name: HOME_LABEL, to: HOME, current: true },
     { name: LOGIN_LABEL, to: LOGIN, current: false },
     { name: SIGNUP_LABEL, to: SIGNUP, current: false },
+];
+
+const authNavigation = [
+    { name: HOME_LABEL, to: HOME, current: true },
     { name: "Admin", to: ADMIN, current: false },
-    { name: "User", to: USER, current: false },
+    { name: "Dashboard", to: USER, current: false },
 ];
 
 function classNames(...classes) {
@@ -27,6 +34,8 @@ function classNames(...classes) {
 
 export default function Header() {
     let { pathname } = useLocation();
+    const { state, dispatch } = useAuthContext();
+    const navigate = useNavigate();
 
     return (
         <Disclosure as="nav" className="bg-white  border-b-gray-200 shadow-sm">
@@ -61,45 +70,83 @@ export default function Header() {
                                         Exam Portal
                                     </Link>
                                 </div>
-                                <div className="hidden sm:block  sm:ml-6">
+                                <div className="hidden sm:flex items-center  sm:ml-6">
                                     <div className="flex space-x-4">
-                                        {navigation.map((item) => (
-                                            <Link
-                                                key={item.name}
-                                                to={item.to}
-                                                className={classNames(
-                                                    item.to === pathname
-                                                        ? "bg-primary text-white"
-                                                        : "text-primary hover:text-white hover:bg-primary",
-                                                    "px-3 py-2 rounded-md text-sm font-medium "
-                                                )}
-                                                aria-current={
-                                                    item.current
-                                                        ? "page"
-                                                        : undefined
-                                                }
-                                            >
-                                                {item.name}
-                                            </Link>
-                                        ))}
+                                        {state.user
+                                            ? authNavigation.map((item) => (
+                                                  <Link
+                                                      key={item.name}
+                                                      to={item.to}
+                                                      className={classNames(
+                                                          item.to === pathname
+                                                              ? "bg-primary text-white"
+                                                              : "text-primary hover:text-white hover:bg-primary",
+                                                          "px-3 py-2 rounded-md text-sm font-medium "
+                                                      )}
+                                                      aria-current={
+                                                          item.current
+                                                              ? "page"
+                                                              : undefined
+                                                      }
+                                                      style={{
+                                                          display:
+                                                              item.name ===
+                                                                  "Admin" &&
+                                                              state?.user
+                                                                  ?.authorities[0]
+                                                                  ?.authority !==
+                                                                  "ADMIN"
+                                                                  ? "none"
+                                                                  : " ",
+                                                      }}
+                                                  >
+                                                      {item.name}
+                                                  </Link>
+                                              ))
+                                            : navigation.map((item) => (
+                                                  <Link
+                                                      key={item.name}
+                                                      to={item.to}
+                                                      className={classNames(
+                                                          item.to === pathname
+                                                              ? "bg-primary text-white"
+                                                              : "text-primary hover:text-white hover:bg-primary",
+                                                          "px-3 py-2 rounded-md text-sm font-medium "
+                                                      )}
+                                                      aria-current={
+                                                          item.current
+                                                              ? "page"
+                                                              : undefined
+                                                      }
+                                                  >
+                                                      {item.name}
+                                                  </Link>
+                                              ))}
                                     </div>
                                 </div>
                             </div>
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                                {state?.user && (
+                                    <div className=" hidden sm:block text-base text-primary font-bold ml-3 ">
+                                        {state?.user?.username}
+                                    </div>
+                                )}
                                 {/* Profile dropdown */}
                                 <Menu as="div" className="ml-3 relative">
-                                    <div>
-                                        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                                            <span className="sr-only">
-                                                Open user menu
-                                            </span>
-                                            <img
-                                                className="h-8 w-8 rounded-full"
-                                                src="https://ca.slack-edge.com/T02Q6Q52HGU-U02PXS85CCW-4b5278db3e35-72"
-                                                alt=""
-                                            />
-                                        </Menu.Button>
-                                    </div>
+                                    {state?.user && (
+                                        <div>
+                                            <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                                <span className="sr-only">
+                                                    Open user menu
+                                                </span>
+                                                <img
+                                                    className="h-8 w-8 rounded-full"
+                                                    src={"./default.png"}
+                                                    alt="userProfile"
+                                                />
+                                            </Menu.Button>
+                                        </div>
+                                    )}
                                     <Transition
                                         as={Fragment}
                                         enter="transition ease-out duration-100"
@@ -114,7 +161,7 @@ export default function Header() {
                                                 {({ active }) => (
                                                     <Link
                                                         /* @TODO ==> Change this link  Fri Jul 01  */
-                                                        to={HOME}
+                                                        to={PROFILE}
                                                         className={classNames(
                                                             active
                                                                 ? "bg-gray-100"
@@ -129,7 +176,7 @@ export default function Header() {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <Link
-                                                        to={HOME}
+                                                        to={"/user"}
                                                         /* @TODO ==> Change this link  Fri Jul 01  */
                                                         className={classNames(
                                                             active
@@ -138,24 +185,46 @@ export default function Header() {
                                                             "block px-4 py-2 text-sm text-gray-700"
                                                         )}
                                                     >
-                                                        Settings
+                                                        Dashboard
                                                     </Link>
                                                 )}
                                             </Menu.Item>
+                                            {state?.user?.authorities[0]
+                                                ?.authority === "ADMIN" && (
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                        <Link
+                                                            to={ADMIN}
+                                                            /* @TODO ==> Change this link  Fri Jul 01  */
+                                                            className={classNames(
+                                                                active
+                                                                    ? "bg-gray-100"
+                                                                    : "",
+                                                                "block px-4 py-2 text-sm text-gray-700"
+                                                            )}
+                                                        >
+                                                            Admin
+                                                        </Link>
+                                                    )}
+                                                </Menu.Item>
+                                            )}
                                             <Menu.Item>
                                                 {({ active }) => (
-                                                    <Link
-                                                        to={HOME}
+                                                    <div
+                                                        role="button"
+                                                        onClick={() =>
+                                                            auth.logut(
+                                                                dispatch,
+                                                                navigate
+                                                            )
+                                                        }
                                                         /* @TODO ==> Change this link  Fri Jul 01  */
                                                         className={classNames(
-                                                            active
-                                                                ? "bg-gray-100"
-                                                                : "",
-                                                            "block px-4 py-2 text-sm text-gray-700"
+                                                            "block px-4 py-2 text-sm bg-red-400 text-white rounded-md font-bold cursor-pointer hover:bg-red-500  hover:text-white "
                                                         )}
                                                     >
                                                         Sign out
-                                                    </Link>
+                                                    </div>
                                                 )}
                                             </Menu.Item>
                                         </Menu.Items>

@@ -1,15 +1,8 @@
 import React from "react";
-import {
-    FiFolderPlus,
-    FiHome,
-    FiList,
-    FiPlus,
-    FiShoppingCart,
-} from "react-icons/fi";
+import { FiFolderPlus, FiHome, FiList, FiShoppingCart } from "react-icons/fi";
 import { useLocation, useParams } from "react-router-dom";
 import {
     ADD_CATEGORY,
-    ADD_QUIZ,
     ADMIN,
     ALL_QUIZZ,
     VIEW_CATEGORY,
@@ -44,12 +37,6 @@ const AdminSideBarLinks = () => {
                 name="All Quiz"
                 active={pathname === `${ADMIN}/${ALL_QUIZZ}`}
                 icon={FiList}
-            />
-            <SidebarLink
-                path={`${ADMIN}/${ADD_QUIZ}`}
-                name="Add Quiz"
-                active={pathname === `${ADMIN}/${ADD_QUIZ}`}
-                icon={FiPlus}
             />
         </>
     );
