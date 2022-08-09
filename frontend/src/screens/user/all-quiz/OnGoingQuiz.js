@@ -77,7 +77,7 @@ const OnGoingQuiz = () => {
                     <div className=" row-span-full  md:col-start-10  col-span-full   md:col-span-full ">
                         <TimeIndicator
                             onComplete={() => setAutoSubmit(true)}
-                            time={1}
+                            time={data?.length}
                         />
                     </div>
                 </div>
