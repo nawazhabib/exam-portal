@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import PrimaryBtn from "../../../components/button/PrimaryBtn";
 import Container from "../../../components/container/Container";
 import Message from "../../../components/message/Message";
 import Spinner from "../../../components/spinner/Spinner";
@@ -12,42 +11,22 @@ import {
     QUIZ_ENDPOINT,
     RUNNING,
 } from "../../../routes/routes";
-import QuizCard from "./QuizCard";
 import QuizHeader from "./QuizHeader";
 import TimeIndicator from "./TimeIndicator";
+import WraperQuiz from "./WraperQuiz";
 
 const OnGoingQuiz = () => {
     const navigation = useNavigate();
     const [questionLoader, setQuestionLoader] = useState(false);
     const [questionMessage, setQuestionMessage] = useState("");
-
+    const [autoSubmit, setAutoSubmit] = useState(false);
     const { state } = useLocation();
-    const [quizData, setQuizData] = useState([]);
+
     const { data, error, loading, message } = useNetwork(
         `${QUESTION_ENDPOINT}${QUIZ_ENDPOINT}${state?.quizId}`
     );
-    useEffect(() => {
-        if (data !== null) {
-            setQuizData(data);
-        }
-    }, [data]);
 
-    const handleOnChange = (e) => {
-        const name = Number(e.target.name);
-        const value = e.target.value;
-        // console.log(name, value);
-        let tempObj = quizData.map((item) => {
-            if (name === item.questionID) {
-                let newObj = item;
-                item.givenAnswer = value;
-                return newObj;
-            } else {
-                return item;
-            }
-        });
-        setQuizData(tempObj);
-    };
-    const handleSubmitQuestion = () => {
+    const handleSubmitQuestion = (quizData) => {
         setQuestionLoader(true);
         setQuestionMessage("");
         request
@@ -67,7 +46,6 @@ const OnGoingQuiz = () => {
                 }
             })
             .catch((err) => {
-                console.log(err, "errr");
                 setQuestionLoader(false);
                 setQuestionMessage(err);
             });
@@ -89,30 +67,17 @@ const OnGoingQuiz = () => {
                             maxMark={data[0]?.quiz?.maxMark}
                         />
                         {/* Map this card Quiz Card */}
-                        {data.map((quiz) => (
-                            <QuizCard
-                                key={quiz?.questionID}
-                                id={quiz?.questionID}
-                                content={quiz?.content}
-                                option1={quiz?.option1}
-                                option2={quiz?.option2}
-                                option3={quiz?.option3}
-                                option4={quiz?.option4}
-                                onChange={handleOnChange}
-                            />
-                        ))}
-
-                        <PrimaryBtn
-                            onClick={handleSubmitQuestion}
-                            title="Submit"
-                            className="px-14"
+                        <WraperQuiz
+                            data={data}
+                            onSubmit={handleSubmitQuestion}
                             loading={questionLoader}
+                            autoSubmit={autoSubmit}
                         />
                     </div>
                     <div className=" row-span-full  md:col-start-10  col-span-full   md:col-span-full ">
                         <TimeIndicator
-                            onComplete={() => handleSubmitQuestion()}
-                            time={data?.length}
+                            onComplete={() => setAutoSubmit(true)}
+                            time={1}
                         />
                     </div>
                 </div>
