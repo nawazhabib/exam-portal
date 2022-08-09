@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Countdown from "react-countdown";
 
 const TimerContent = ({ time, unit }) => {
@@ -16,7 +16,7 @@ const TimerContent = ({ time, unit }) => {
 };
 
 const TimeIndicator = ({ time = 0, onComplete }) => {
-    const renderer = ({ minutes, seconds }) => {
+    const renderer = useCallback(({ minutes, seconds }) => {
         return (
             <div
                 className={`flex   ${
@@ -31,7 +31,7 @@ const TimeIndicator = ({ time = 0, onComplete }) => {
                 <TimerContent time={seconds} unit="seconds" />
             </div>
         );
-    };
+    }, []);
     return (
         <div className="bg-white border-gray-200 border-2 p-4 w-full shadow-lg flex flex-col justify-center items-center rounded-md">
             <h1 className="mb-2 text-base">Time Indicator</h1>

@@ -3,6 +3,8 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Fragment } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import defaultAvatar from "../../assets/images/default.png";
+import logo from "../../assets/images/logo.svg";
 import { useAuthContext } from "../../context/AuthContext";
 import auth from "../../request/auth";
 import {
@@ -65,9 +67,16 @@ export default function Header() {
                                 <div className="flex-shrink-0 flex items-center">
                                     <Link
                                         to={HOME}
-                                        className="font-extrabold text-3xl text-primary hover:cursor-pointer "
+                                        className="font-extrabold text-3xl text-primary hover:cursor-pointer flex items-center"
                                     >
-                                        Exam Portal
+                                        <img
+                                            className="w-12"
+                                            src={logo}
+                                            alt="Exam_Portal"
+                                        />
+                                        <p className="hidden sm:block ml-2">
+                                            Portal
+                                        </p>
                                     </Link>
                                 </div>
                                 <div className="hidden sm:flex items-center  sm:ml-6">
@@ -141,7 +150,7 @@ export default function Header() {
                                                 </span>
                                                 <img
                                                     className="h-8 w-8 rounded-full"
-                                                    src={"./default.png"}
+                                                    src={defaultAvatar}
                                                     alt="userProfile"
                                                 />
                                             </Menu.Button>
