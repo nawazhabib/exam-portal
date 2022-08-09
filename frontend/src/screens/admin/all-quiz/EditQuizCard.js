@@ -5,7 +5,7 @@ import { SHOW_TOAST } from "../../../context/constants";
 import request from "../../../request/request";
 import { ERR_MSG, QUESTION_ENDPOINT } from "../../../routes/routes";
 
-const EditQuizCard = ({ data, onUpdate }) => {
+const EditQuizCard = ({ data, onUpdate, number }) => {
     const [loading, setLoading] = useState(false);
     const { dispatch } = useAuthContext();
     const handleDelete = async (e) => {
@@ -35,7 +35,8 @@ const EditQuizCard = ({ data, onUpdate }) => {
     return (
         <div className="bg-white p-3 shadow-md rounded-md mb-4">
             <p className="text-lg mb-4 text-gray-800 ">
-                Q.1{")"} {data?.content}
+                Q.{number + 1}
+                {")"} {data?.content}
             </p>
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 border-b border-gray-400 pb-2">
                 <p className="text-gray-700">
