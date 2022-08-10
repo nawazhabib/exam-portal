@@ -1,5 +1,4 @@
 ## Exam Portal
-___
 Exam portal is an online platform where anyone can attend quiz. Educational organizations or institutions can use it for online MCQ exam. 
 
 ### Youtube video preview
