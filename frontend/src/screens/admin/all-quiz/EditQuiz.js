@@ -57,11 +57,12 @@ const EditQuiz = () => {
             ) : message ? (
                 <Message error={error}>{message}</Message>
             ) : data && data.length > 0 ? (
-                data.map((item) => (
+                data.map((item, index) => (
                     <EditQuizCard
                         key={item.questionID}
                         data={item}
                         onUpdate={loadQuizQuestion}
+                        number={index}
                     />
                 ))
             ) : (

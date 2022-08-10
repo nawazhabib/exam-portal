@@ -20,7 +20,7 @@ const DisplayAllQuizes = () => {
             );
             setQuiz(filtered);
         }
-    }, [data, queryString, quiz]);
+    }, [data, queryString]);
 
     return (
         <div>
