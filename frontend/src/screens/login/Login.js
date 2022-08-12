@@ -129,6 +129,7 @@ const Login = () => {
                                         error={formError.password}
                                         value={formData.password}
                                         name="password"
+                                        type="password"
                                         onChange={handleChangeField}
                                     />
                                     <PrimaryBtn

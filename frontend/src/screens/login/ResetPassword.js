@@ -133,6 +133,7 @@ const ResetPassword = () => {
                                         error={formError.password}
                                         onChange={handleChangeField}
                                         name="password"
+                                        type="password"
                                     />
                                     <InputComponent
                                         placeholder="Confirm Password"
@@ -141,6 +142,7 @@ const ResetPassword = () => {
                                         error={formError.confirmPassword}
                                         onChange={handleChangeField}
                                         name="confirmPassword"
+                                        type="password"
                                     />
                                     <PrimaryBtn
                                         onClick={handleResetPassword}
