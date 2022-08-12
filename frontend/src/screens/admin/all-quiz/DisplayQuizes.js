@@ -16,7 +16,7 @@ const DisplayAllQuizes = () => {
         if (data !== null && data.length > 0 && !queryString) setQuiz(data);
         else if (data !== null && data.length > 0 && queryString) {
             const filtered = data.filter((item) =>
-                item.title.toLowerCase().includes(queryString)
+                item.title.toLowerCase().includes(queryString.toLowerCase())
             );
             setQuiz(filtered);
         }

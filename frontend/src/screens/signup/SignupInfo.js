@@ -46,6 +46,7 @@ const SignupInfo = ({
                 error={formError.password}
                 onChange={onChange}
                 name="password"
+                type="password"
             />
             <InputComponent
                 placeholder="Confirm Password"
@@ -54,6 +55,7 @@ const SignupInfo = ({
                 error={formError.confirmPassword}
                 onChange={onChange}
                 name="confirmPassword"
+                type="password"
             />
 
             <PrimaryBtn
