@@ -12,16 +12,7 @@ import {
     VIEW_CATEGORY,
 } from "../../../routes/routes";
 
-const Cards = ({
-    title,
-    marks,
-    desc,
-    questions,
-    quizID,
-
-    onDelete,
-    quiz,
-}) => {
+const Cards = ({ title, marks, desc, questions, quizID, onDelete, quiz }) => {
     const navigation = useNavigate();
     const { pathname } = useLocation();
     const [isAdmin] = useState(pathname.includes(`${ADMIN}/${VIEW_CATEGORY}`));
@@ -78,7 +69,9 @@ const Cards = ({
                 />
             ) : (
                 <PrimaryBtn
-                    onClick={() => navigation(RUNNING, { state: { quizID } })}
+                    onClick={() =>
+                        navigation(RUNNING, { state: { quizID: quizID } })
+                    }
                     title="Start"
                     className=" font-bold text-sm"
                 />

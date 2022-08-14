@@ -23,7 +23,7 @@ const OnGoingQuiz = () => {
     const { state } = useLocation();
 
     const { data, error, loading, message } = useNetwork(
-        `${QUESTION_ENDPOINT}${QUIZ_ENDPOINT}${state?.quizId}`
+        `${QUESTION_ENDPOINT}${QUIZ_ENDPOINT}${state?.quizID}`
     );
 
     const handleSubmitQuestion = (quizData) => {
