@@ -48,6 +48,7 @@ const CategoryQuizes = () => {
                 setDeletLoading(false);
             });
     };
+
     return (
         <div>
             {/* title */}
@@ -104,7 +105,9 @@ const CategoryQuizes = () => {
                                     marks={item.maxMark}
                                     desc={item.description}
                                     questions={item.numberOfQuestions}
-                                    quizId={item.quizID}
+                                    quizID={item.quizID}
+                                    quiz={quizData}
+                                    onDelete={setQuizData}
                                 />
                             </div>
                         ))

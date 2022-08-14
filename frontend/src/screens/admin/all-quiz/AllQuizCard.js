@@ -26,12 +26,14 @@ const AllQuizCard = ({
     category,
     quiz,
     onDelete,
+    data,
 }) => {
     const [activeQuiz, setActiveQuiz] = useState(active);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [delteLoading, setDeleteLoading] = useState(false);
     const { state, dispatch } = useAuthContext();
+
     const handleUpdate = () => {
         const body = {
             quizID,

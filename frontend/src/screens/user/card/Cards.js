@@ -1,10 +1,53 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import PrimaryBtn from "../../../components/button/PrimaryBtn";
-import { RUNNING } from "../../../routes/routes";
+import { useAuthContext } from "../../../context/AuthContext";
+import { SHOW_TOAST } from "../../../context/constants";
+import request from "../../../request/request";
+import {
+    ADMIN,
+    ERR_MSG,
+    QUIZ_ENDPOINT,
+    RUNNING,
+    VIEW_CATEGORY,
+} from "../../../routes/routes";
 
-const Cards = ({ title, marks, desc, questions, quizId }) => {
+const Cards = ({
+    title,
+    marks,
+    desc,
+    questions,
+    quizID,
+
+    onDelete,
+    quiz,
+}) => {
     const navigation = useNavigate();
+    const { pathname } = useLocation();
+    const [isAdmin] = useState(pathname.includes(`${ADMIN}/${VIEW_CATEGORY}`));
+
+    const { dispatch } = useAuthContext();
+
+    const [delteLoading, setDeleteLoading] = useState(false);
+
+    const deleteQuiz = async (quizID) => {
+        setDeleteLoading(false);
+        try {
+            await request.authDelete({ endpoint: `${QUIZ_ENDPOINT}${quizID}` });
+            dispatch({
+                type: SHOW_TOAST,
+                payload: { message: "Quiz deleted successfully!" },
+            });
+            setDeleteLoading(false);
+            onDelete(quiz.filter((item) => item.quizID !== quizID));
+        } catch (error) {
+            setDeleteLoading(false);
+            dispatch({
+                type: SHOW_TOAST,
+                payload: { message: ERR_MSG, error: true },
+            });
+        }
+    };
     return (
         <div className="bg-white border  border-gray-200 shadow-lg p-3 rounded-md h-full ">
             <h1 className="text-gray-700 text-xl capitalize font-semibold mb-4 ">
@@ -24,11 +67,22 @@ const Cards = ({ title, marks, desc, questions, quizId }) => {
                     <span className="font-bold text-green">{marks}</span>
                 </p>
             </div>
-            <PrimaryBtn
-                onClick={() => navigation(RUNNING, { state: { quizId } })}
-                title="Start"
-                className=" font-bold text-sm"
-            />
+            {isAdmin ? (
+                <PrimaryBtn
+                    // onClick={() => navigation(RUNNING, { state: { quizID } })}
+                    onClick={() => deleteQuiz(quizID)}
+                    title="Delete"
+                    bg="bg-error"
+                    className=" font-bold text-sm"
+                    loading={delteLoading}
+                />
+            ) : (
+                <PrimaryBtn
+                    onClick={() => navigation(RUNNING, { state: { quizID } })}
+                    title="Start"
+                    className=" font-bold text-sm"
+                />
+            )}
         </div>
     );
 };

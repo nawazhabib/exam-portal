@@ -52,6 +52,7 @@ const DisplayAllQuizes = () => {
                             category={item.category}
                             quiz={quiz}
                             onDelete={setQuiz}
+                            data={item}
                         />
                     ))
                 ) : (
