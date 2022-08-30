@@ -40,7 +40,7 @@ const AllQuiz = () => {
                                     marks={item.maxMark}
                                     desc={item.description}
                                     questions={item.numberOfQuestions}
-                                    quizId={item.quizID}
+                                    quizID={item.quizID}
                                 />
                             </div>
                         ))
