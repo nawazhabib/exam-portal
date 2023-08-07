@@ -1,6 +1,5 @@
 ## Exam Portal
-Exam portal is an online platform where anyone can attend quiz. Educational organizations or institutions can use it for online MCQ exam. 
-
+Exam Portal is an innovative and user-friendly online platform designed to offer a seamless quiz-taking experience to individuals of all backgrounds. The platform caters to both individual learners and educational institutions, providing a comprehensive solution for conducting online multiple-choice question (MCQ) exams. Exam Portal ensures robustness, scalability, and optimal performance. Its user-friendly interface and intuitive navigation make it accessible to a wide range of users, regardless of their technical expertise.
 ### Youtube video preview
 ___
 
